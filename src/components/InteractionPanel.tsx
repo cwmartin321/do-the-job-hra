@@ -93,29 +93,36 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
       timestamp: new Date().toISOString()
     };
     
-    setComments(prev => [...prev, commentObj]);
+    const commentPayload = JSON.stringify(commentObj);
+    
+    setComments(prev => [...prev, commentPayload]);
     setNewComment("");
     
     try {
-      await fetch('/api/comments', {
+      const res = await fetch('/api/comments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slideId, comment: commentObj })
+        body: JSON.stringify({ slideId, comment: commentPayload })
       });
+      if (!res.ok) throw new Error("POST failed");
     } catch (err) {
-      setComments(prev => prev.filter(c => c !== commentObj));
+      setComments(prev => prev.filter(c => c !== commentPayload));
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDeleteComment = async (c: string | CommentData) => {
-    setComments(prev => prev.filter(item => item !== c));
+    const commentPayload = typeof c === 'string' ? c : JSON.stringify(c);
+    setComments(prev => prev.filter(item => {
+      const itemPayload = typeof item === 'string' ? item : JSON.stringify(item);
+      return itemPayload !== commentPayload;
+    }));
     try {
       await fetch('/api/comments', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slideId, comment: c })
+        body: JSON.stringify({ slideId, comment: commentPayload })
       });
     } catch (err) {
     }
