@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const comments = await redis.lrange(`slide:${slideId}:comments`, 0, -1);
+    const comments = await redis.lrange(`presentation:slide:${slideId}:comments`, 0, -1);
     return NextResponse.json({ comments: comments || [] });
   } catch (error) {
     console.error("Redis fetch error:", error);
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    await redis.rpush(`slide:${slideId}:comments`, comment);
+    await redis.rpush(`presentation:slide:${slideId}:comments`, comment);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Redis write error:", error);

@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const reactions = await redis.hgetall(`slide:${slideId}:reactions`);
+    const reactions = await redis.hgetall(`presentation:slide:${slideId}:reactions`);
     // Hash fields return as strings/numbers
     return NextResponse.json({ 
       reactions: {
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    await redis.hincrby(`slide:${slideId}:reactions`, type, 1);
+    await redis.hincrby(`presentation:slide:${slideId}:reactions`, type, 1);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Redis write error:", error);
