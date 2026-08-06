@@ -10,6 +10,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
   const [reactions, setReactions] = useState({ thumbsUp: 0, heart: 0 });
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState("");
+  const [commentName, setCommentName] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -61,7 +62,8 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
     if (!newComment.trim() || isSubmitting) return;
     
     setIsSubmitting(true);
-    const commentText = newComment.trim();
+    const displayName = commentName.trim() || "Anonymous";
+    const commentText = `${displayName}: ${newComment.trim()}`;
     
     setComments(prev => [...prev, commentText]);
     setNewComment("");
@@ -140,28 +142,45 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
               ) : (
                 comments.map((c, i) => (
                   <div key={i} className="bg-zinc-800/60 p-4 rounded-xl text-sm text-zinc-200 shadow-sm border border-zinc-700/50">
-                    {c}
+                    {c.includes(': ') ? (
+                      <>
+                        <span className="font-bold text-indigo-400">{c.split(': ')[0]}</span>
+                        <span className="text-zinc-500 mx-1.5">•</span>
+                        {c.substring(c.indexOf(': ') + 2)}
+                      </>
+                    ) : (
+                      c
+                    )}
                   </div>
                 ))
               )}
             </div>
             
             <div className="p-5 border-t border-zinc-800 bg-zinc-900">
-              <form onSubmit={handleCommentSubmit} className="flex gap-3">
+              <form onSubmit={handleCommentSubmit} className="flex flex-col gap-3">
                 <input
                   type="text"
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Add a comment..."
-                  className="flex-1 bg-black border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  value={commentName}
+                  onChange={(e) => setCommentName(e.target.value)}
+                  placeholder="Your Name (optional)"
+                  className="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
                 />
-                <button 
-                  type="submit"
-                  disabled={!newComment.trim() || isSubmitting}
-                  className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-zinc-800 disabled:text-zinc-500 text-white p-2.5 px-4 rounded-xl transition-colors flex items-center justify-center"
-                >
-                  <Send size={18} />
-                </button>
+                <div className="flex gap-3">
+                  <input
+                    type="text"
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="Add a comment..."
+                    className="flex-1 bg-black border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  />
+                  <button 
+                    type="submit"
+                    disabled={!newComment.trim() || isSubmitting}
+                    className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-zinc-800 disabled:text-zinc-500 text-white p-2.5 px-4 rounded-xl transition-colors flex items-center justify-center"
+                  >
+                    <Send size={18} />
+                  </button>
+                </div>
               </form>
             </div>
           </motion.div>

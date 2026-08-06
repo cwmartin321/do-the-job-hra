@@ -52,7 +52,7 @@ export function SlideDeck() {
         </div>
 
         {/* Navigation Controls Overlay */}
-        <div className="fixed inset-y-0 left-0 flex items-center px-4 opacity-0 hover:opacity-100 transition-opacity z-40">
+        <div className="fixed inset-y-0 left-0 flex items-center px-4 opacity-30 hover:opacity-100 transition-opacity z-40">
           <button
             onClick={prevSlide}
             disabled={currentIndex === 0}
@@ -61,7 +61,7 @@ export function SlideDeck() {
             <ChevronLeft size={36} />
           </button>
         </div>
-        <div className="fixed inset-y-0 right-0 flex items-center px-4 opacity-0 hover:opacity-100 transition-opacity z-40">
+        <div className="fixed inset-y-0 right-0 flex items-center px-4 opacity-30 hover:opacity-100 transition-opacity z-40">
           <button
             onClick={nextSlide}
             disabled={currentIndex === slides.length - 1}
