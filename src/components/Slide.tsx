@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { SlideData } from "@/config/slides";
+import GanttChart from "./GanttChart";
 
 export function Slide({ data, isPrint = false }: { data: SlideData; isPrint?: boolean }) {
   if (isPrint) {
@@ -26,6 +27,12 @@ export function Slide({ data, isPrint = false }: { data: SlideData; isPrint?: bo
                 </li>
               ))}
             </ul>
+          )}
+
+          {data.component === "GanttChart" && (
+            <div className="mt-8">
+              <GanttChart />
+            </div>
           )}
         </div>
       </div>
@@ -63,6 +70,16 @@ export function Slide({ data, isPrint = false }: { data: SlideData; isPrint?: bo
               </motion.li>
             ))}
           </ul>
+        )}
+
+        {data.component === "GanttChart" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <GanttChart />
+          </motion.div>
         )}
       </div>
     </motion.div>

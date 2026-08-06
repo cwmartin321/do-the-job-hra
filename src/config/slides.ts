@@ -3,6 +3,7 @@ export type SlideData = {
   title: string;
   body: string;
   bulletPoints?: string[];
+  component?: "GanttChart";
 };
 
 export const slides: SlideData[] = [
@@ -32,12 +33,7 @@ export const slides: SlideData[] = [
     id: "slide-3-project-plan",
     title: "Project Plan",
     body: "A structured 8-week implementation timeline ensuring accurate data collection, customization, and seamless deployment.",
-    bulletPoints: [
-      "Weeks 1-2: Initiation and Needs Mapping.",
-      "Weeks 3-4: HRIS Data Extraction and Configuration.",
-      "Weeks 5-6: Regression Testing and Training.",
-      "Weeks 7-8: Go-Live and Ongoing Monitoring."
-    ]
+    component: "GanttChart"
   },
   {
     id: "slide-4-team-roles",
