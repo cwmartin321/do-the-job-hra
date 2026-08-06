@@ -1,18 +1,41 @@
 "use client";
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import { Download, FileText, FileDown, Loader2 } from "lucide-react";
 import { slides } from "@/config/slides";
+import { Slide } from "./Slide";
 
 export function ExportMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [pdfData, setPdfData] = useState<{ comments: Record<string, string[]>, ready: boolean }>({ comments: {}, ready: false });
 
   const exportPDF = async () => {
     setIsExporting(true);
     try {
-      // Dynamically import html2pdf.js only on the client side
+      const allComments: Record<string, string[]> = {};
+      for (const slide of slides) {
+        try {
+          const res = await fetch(`/api/comments?slideId=${slide.id}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.comments && data.comments.length > 0) {
+              allComments[slide.title] = data.comments;
+            }
+          }
+        } catch (e) {
+          console.error("Failed to fetch comments for slide", slide.id);
+        }
+      }
+
+      flushSync(() => {
+        setPdfData({ comments: allComments, ready: true });
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       const html2pdf = (await import("html2pdf.js")).default;
-      const element = document.getElementById("presentation-container");
+      const element = document.getElementById("pdf-export-container");
       if (!element) throw new Error("Presentation container not found");
       
       const opt = {
@@ -24,9 +47,12 @@ export function ExportMenu() {
       };
 
       await html2pdf().set(opt).from(element).save();
+      
+      setPdfData({ comments: {}, ready: false });
     } catch (err) {
       console.error("Failed to export PDF", err);
       alert("Failed to export PDF. See console for details.");
+      setPdfData({ comments: {}, ready: false });
     } finally {
       setIsExporting(false);
       setIsOpen(false);
@@ -111,6 +137,46 @@ export function ExportMenu() {
             {isExporting ? <Loader2 size={16} className="animate-spin" /> : <FileText size={16} className="text-blue-400" />}
             Export Markdown
           </button>
+        </div>
+      )}
+
+      {pdfData.ready && (
+        <div id="pdf-export-container" className="fixed left-[-9999px] top-0 w-[1200px] bg-black flex flex-col overflow-hidden">
+          {slides.map((slide) => (
+            <div key={slide.id} className="relative w-[1200px] h-[675px] flex items-center justify-center px-12 bg-black shrink-0">
+              <div className="w-full h-full relative">
+                <Slide data={slide} />
+              </div>
+            </div>
+          ))}
+
+          {Object.keys(pdfData.comments).length > 0 && (
+            <div className="relative w-[1200px] min-h-[675px] p-16 bg-zinc-950 text-white flex flex-col items-center shrink-0">
+              <h1 className="text-4xl font-bold mb-12 text-indigo-400">Audience Comments Appendix</h1>
+              <div className="w-full max-w-4xl flex flex-col gap-8">
+                {Object.entries(pdfData.comments).map(([title, comments]) => (
+                  <div key={title} className="bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800">
+                    <h2 className="text-2xl font-bold mb-6 text-zinc-200">{title}</h2>
+                    <div className="space-y-4">
+                      {comments.map((c, i) => (
+                        <div key={i} className="text-zinc-400 text-lg leading-relaxed">
+                           {c.includes(': ') ? (
+                            <>
+                              <span className="font-bold text-zinc-300">{c.split(': ')[0]}</span>
+                              <span className="mx-3 text-zinc-600">•</span>
+                              {c.substring(c.indexOf(': ') + 2)}
+                            </>
+                          ) : (
+                            c
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
