@@ -180,10 +180,15 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
               {comments.length === 0 ? (
                 <p className="text-zinc-500 text-sm italic text-center py-8">No comments yet. Be the first!</p>
               ) : (
-                comments.map((c, i) => {
+                comments.map((rawC, i) => {
+                  let c = rawC;
+                  if (typeof rawC === 'string' && rawC.trim().startsWith('{')) {
+                    try { c = JSON.parse(rawC); } catch (e) {}
+                  }
+                  
                   const isLegacy = typeof c === 'string';
-                  const name = isLegacy ? c.split(': ')[0] : (c as CommentData).name;
-                  const text = isLegacy ? c.substring(c.indexOf(': ') + 2) : (c as CommentData).text;
+                  const name = isLegacy ? (c as string).split(': ')[0] : (c as CommentData).name;
+                  const text = isLegacy ? (c as string).substring((c as string).indexOf(': ') + 2) : (c as CommentData).text;
                   const timestamp = isLegacy ? null : new Date((c as CommentData).timestamp);
 
                   return (

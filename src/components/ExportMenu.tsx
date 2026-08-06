@@ -78,7 +78,11 @@ export function ExportMenu() {
             const data = await res.json();
             if (data.comments && data.comments.length > 0) {
               mdContent += `### Audience Comments\n`;
-              data.comments.forEach((c: string | CommentData) => {
+              data.comments.forEach((rawC: string | CommentData) => {
+                let c = rawC;
+                if (typeof rawC === 'string' && rawC.trim().startsWith('{')) {
+                  try { c = JSON.parse(rawC); } catch (e) {}
+                }
                 const isLegacy = typeof c === 'string';
                 const name = isLegacy ? (c as string).split(': ')[0] : (c as CommentData).name;
                 const text = isLegacy ? (c as string).substring((c as string).indexOf(': ') + 2) : (c as CommentData).text;
@@ -196,7 +200,11 @@ export function ExportMenu() {
                   <div key={title} className="bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800" style={{ pageBreakInside: 'avoid' }}>
                     <h2 className="text-2xl font-bold mb-6 text-zinc-200">{title}</h2>
                     <div className="space-y-4">
-                      {comments.map((c, i) => {
+                      {comments.map((rawC, i) => {
+                        let c = rawC;
+                        if (typeof rawC === 'string' && rawC.trim().startsWith('{')) {
+                          try { c = JSON.parse(rawC); } catch (e) {}
+                        }
                         const isLegacy = typeof c === 'string';
                         const name = isLegacy ? (c as string).split(': ')[0] : (c as CommentData).name;
                         const text = isLegacy ? (c as string).substring((c as string).indexOf(': ') + 2) : (c as CommentData).text;
