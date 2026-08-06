@@ -9,10 +9,10 @@ export function Slide({ data }: { data: SlideData }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="flex flex-col h-full w-full p-16 bg-gradient-to-br from-zinc-900 to-black text-zinc-100 rounded-3xl shadow-2xl border border-zinc-800/50"
+      className="flex flex-col h-full w-full p-16 bg-zinc-900 text-zinc-100 rounded-3xl shadow-2xl border border-zinc-800/50"
     >
       <div className="flex-1">
-        <h2 className="text-6xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 tracking-tight">
+        <h2 className="text-6xl font-extrabold mb-8 text-white tracking-tight">
           {data.title}
         </h2>
         <p className="text-3xl text-zinc-300 leading-relaxed mb-12 font-light">
