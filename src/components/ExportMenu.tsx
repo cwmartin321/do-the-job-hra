@@ -32,11 +32,19 @@ export function ExportMenu() {
         setPdfData({ comments: allComments, ready: true });
       });
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
+      const handleAfterPrint = () => {
+        setPdfData({ comments: {}, ready: false });
+        window.removeEventListener('afterprint', handleAfterPrint);
+      };
+      window.addEventListener('afterprint', handleAfterPrint);
+      
       window.print();
       
-      setPdfData({ comments: {}, ready: false });
+      // Fallback cleanup in case afterprint doesn't fire
+      setTimeout(handleAfterPrint, 60000);
+      
     } catch (err) {
       console.error("Failed to export PDF", err);
       alert("Failed to export PDF. See console for details.");
@@ -175,11 +183,11 @@ export function ExportMenu() {
             </div>
           ))}
 
-          {Object.keys(pdfData.comments).length > 0 && (
-            <div className="print-appendix relative w-[1200px] min-h-[675px] p-16 bg-zinc-950 text-white flex flex-col items-center shrink-0">
-              <h1 className="text-4xl font-bold mb-12 text-indigo-400">Audience Comments Appendix</h1>
-              <div className="w-full max-w-4xl flex flex-col gap-8">
-                {Object.entries(pdfData.comments).map(([title, comments]) => (
+          <div className="print-appendix relative w-[1200px] min-h-[675px] p-16 bg-zinc-950 text-white flex flex-col items-center shrink-0">
+            <h1 className="text-4xl font-bold mb-12 text-indigo-400">Audience Comments Appendix</h1>
+            <div className="w-full max-w-4xl flex flex-col gap-8">
+              {Object.keys(pdfData.comments).length > 0 ? (
+                Object.entries(pdfData.comments).map(([title, comments]) => (
                   <div key={title} className="bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800" style={{ pageBreakInside: 'avoid' }}>
                     <h2 className="text-2xl font-bold mb-6 text-zinc-200">{title}</h2>
                     <div className="space-y-4">
@@ -198,10 +206,14 @@ export function ExportMenu() {
                       ))}
                     </div>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <div className="text-zinc-500 text-2xl italic text-center py-20 bg-zinc-900/30 rounded-2xl border border-zinc-800/50">
+                  No audience comments found for this presentation.
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
         </>,
         document.body
