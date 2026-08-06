@@ -77,7 +77,8 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
   };
 
   return (
-    <div className="bg-zinc-900/90 backdrop-blur-md border border-zinc-800 rounded-2xl shadow-2xl p-4 w-full max-w-2xl mx-auto transition-all">
+    <>
+      <div className="bg-zinc-900/90 backdrop-blur-md border border-zinc-800 rounded-2xl shadow-2xl p-4 w-full max-w-2xl mx-auto transition-all">
       <div className="flex items-center justify-between">
         <div className="flex gap-4">
           <button 
@@ -104,6 +105,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
           <MessageSquare size={18} />
           <span className="font-medium text-sm">{comments.length} Comments</span>
         </button>
+      </div>
       </div>
 
       <AnimatePresence>
@@ -161,6 +163,6 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
