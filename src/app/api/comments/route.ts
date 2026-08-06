@@ -1,25 +1,12 @@
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+import { Redis } from "@upstash/redis";
 
-const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;
-const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-async function redisFetch(command: string[]) {
-  if (!UPSTASH_URL || !UPSTASH_TOKEN) throw new Error("Missing Upstash config");
-  const res = await fetch(UPSTASH_URL, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${UPSTASH_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(command),
-    cache: "no-store"
-  });
-  if (!res.ok) throw new Error(`Upstash error: ${res.status} ${await res.text()}`);
-  const data = await res.json();
-  if (data.error) throw new Error(`Upstash error: ${data.error}`);
-  return data.result;
-}
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || "https://dummy.upstash.io",
+  token: process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || "dummy",
+});
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -30,7 +17,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const comments = await redisFetch(["LRANGE", `presentation:slide:${slideId}:comments`, "0", "-1"]);
+    const comments = await redis.lrange(`presentation:slide:${slideId}:comments`, 0, -1);
     return NextResponse.json({ comments: comments || [] });
   } catch (error) {
     console.error("Redis fetch error:", error);
@@ -47,7 +34,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    await redisFetch(["RPUSH", `presentation:slide:${slideId}:comments`, comment]);
+    await redis.rpush(`presentation:slide:${slideId}:comments`, comment);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Redis write error:", error);
@@ -64,7 +51,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    await redisFetch(["LREM", `presentation:slide:${slideId}:comments`, "0", comment]);
+    await redis.lrem(`presentation:slide:${slideId}:comments`, 0, comment);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Redis delete error:", error);

@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 import { Redis } from "@upstash/redis";
 
 const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL || "https://dummy.upstash.io",
-  token: process.env.UPSTASH_REDIS_REST_TOKEN || "dummy",
+  url: process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || "https://dummy.upstash.io",
+  token: process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || "dummy",
 });
 
 export async function GET(request: Request) {
