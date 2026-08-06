@@ -55,18 +55,18 @@ export function SlideDeck() {
           <button
             onClick={prevSlide}
             disabled={currentIndex === 0}
-            className="p-4 rounded-full bg-black/60 text-white hover:bg-black/90 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
+            className="p-2 rounded-full bg-black/60 text-white hover:bg-black/90 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
           >
-            <ChevronLeft size={36} />
+            <ChevronLeft size={24} />
           </button>
         </div>
         <div className="absolute inset-y-0 right-0 flex items-center px-4 opacity-30 hover:opacity-100 transition-opacity z-40">
           <button
             onClick={nextSlide}
             disabled={currentIndex === slides.length - 1}
-            className="p-4 rounded-full bg-black/60 text-white hover:bg-black/90 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
+            className="p-2 rounded-full bg-black/60 text-white hover:bg-black/90 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
           >
-            <ChevronRight size={36} />
+            <ChevronRight size={24} />
           </button>
         </div>
       </div>
