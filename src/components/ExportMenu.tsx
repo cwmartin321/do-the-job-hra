@@ -16,7 +16,7 @@ export function ExportMenu() {
       const allComments: Record<string, string[]> = {};
       for (const slide of slides) {
         try {
-          const res = await fetch(`/api/comments?slideId=${slide.id}`);
+          const res = await fetch(`/api/comments?slideId=${slide.id}&t=${Date.now()}`, { cache: "no-store" });
           if (res.ok) {
             const data = await res.json();
             if (data.comments && data.comments.length > 0) {
@@ -64,7 +64,7 @@ export function ExportMenu() {
         
         // Fetch comments for this slide
         try {
-          const res = await fetch(`/api/comments?slideId=${slide.id}`);
+          const res = await fetch(`/api/comments?slideId=${slide.id}&t=${Date.now()}`, { cache: "no-store" });
           if (res.ok) {
             const data = await res.json();
             if (data.comments && data.comments.length > 0) {
