@@ -240,7 +240,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
                     type="text"
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Add a comment..."
+                    placeholder="Add a live comment..."
                     className="flex-1 bg-black border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
                   />
                   <button 
