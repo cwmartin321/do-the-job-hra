@@ -1,9 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { ThumbsUp, Heart, MessageSquare, Send, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function InteractionPanel({ slideId }: { slideId: string }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const [reactions, setReactions] = useState({ thumbsUp: 0, heart: 0 });
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState("");
@@ -108,8 +111,9 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
       </div>
       </div>
 
-      <AnimatePresence>
-        {showComments && (
+      {mounted && createPortal(
+        <AnimatePresence>
+          {showComments && (
           <motion.div 
             initial={{ x: "100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -161,8 +165,10 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
               </form>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
