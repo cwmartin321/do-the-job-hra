@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { MessageSquare, Send, X, Trash2, HelpCircle } from "lucide-react";
+import { MessageSquare, Send, X, Trash2, Hand } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type CommentData = {
@@ -165,7 +165,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
               : 'bg-zinc-900/90 border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 hover:-translate-y-0.5'
           }`}
         >
-          <HelpCircle size={20} className={isQuestionActiveGlobal ? 'fill-amber-500/20' : ''} />
+          <Hand size={20} className={isQuestionActiveGlobal ? 'fill-amber-500/20' : ''} />
           {isQuestionActiveGlobal && <span className="font-medium text-sm">Question</span>}
         </button>
         
