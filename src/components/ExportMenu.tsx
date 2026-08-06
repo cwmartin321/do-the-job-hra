@@ -32,21 +32,9 @@ export function ExportMenu() {
         setPdfData({ comments: allComments, ready: true });
       });
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-      const html2pdf = (await import("html2pdf.js")).default;
-      const element = document.getElementById("pdf-export-container");
-      if (!element) throw new Error("Presentation container not found");
-      
-      const opt = {
-        margin: 0,
-        filename: 'presentation.pdf',
-        image: { type: 'jpeg' as const, quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'in', format: '16by9' as const, orientation: 'landscape' as const }
-      };
-
-      await html2pdf().set(opt).from(element).save();
+      window.print();
       
       setPdfData({ comments: {}, ready: false });
     } catch (err) {
@@ -141,7 +129,30 @@ export function ExportMenu() {
       )}
 
       {pdfData.ready && (
-        <div id="pdf-export-container" className="fixed left-[-9999px] top-0 w-[1200px] bg-black flex flex-col overflow-hidden">
+        <>
+          <style dangerouslySetInnerHTML={{__html: `
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              #pdf-export-container, #pdf-export-container * {
+                visibility: visible;
+              }
+              #pdf-export-container {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 1200px !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+              }
+              @page {
+                size: landscape;
+                margin: 0;
+              }
+            }
+          `}} />
+          <div id="pdf-export-container" className="fixed left-[-9999px] top-0 w-[1200px] bg-black flex flex-col overflow-hidden">
           {slides.map((slide) => (
             <div key={slide.id} className="relative w-[1200px] h-[675px] flex items-center justify-center px-12 bg-black shrink-0">
               <div className="w-full h-full relative">
@@ -178,6 +189,7 @@ export function ExportMenu() {
             </div>
           )}
         </div>
+        </>
       )}
     </div>
   );
