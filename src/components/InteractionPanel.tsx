@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { ThumbsUp, Heart, MessageSquare, Send, X, Trash2 } from "lucide-react";
+import { MessageSquare, Send, X, Trash2, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type CommentData = {
@@ -14,7 +14,8 @@ export type CommentData = {
 export function InteractionPanel({ slideId }: { slideId: string }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const [reactions, setReactions] = useState({ thumbsUp: 0, heart: 0 });
+  const [reactions, setReactions] = useState({ question: 0 });
+  const [myQuestionActive, setMyQuestionActive] = useState(false);
   const [comments, setComments] = useState<(string | CommentData)[]>([]);
   const [newComment, setNewComment] = useState("");
   const [commentName, setCommentName] = useState("");
@@ -36,7 +37,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
         
         if (reactionsRes.ok) {
           const rData = await reactionsRes.json();
-          setReactions(rData.reactions || { thumbsUp: 0, heart: 0 });
+          setReactions(rData.reactions || { question: 0 });
         }
         
         if (commentsRes.ok) {
@@ -56,28 +57,51 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
     if (!showComments) return;
     const interval = setInterval(async () => {
       try {
-        const res = await fetch(`/api/comments?slideId=${slideId}&t=${Date.now()}`, { cache: "no-store" });
+        const [res, rRes] = await Promise.all([
+          fetch(`/api/comments?slideId=${slideId}&t=${Date.now()}`, { cache: "no-store" }),
+          fetch(`/api/reactions?slideId=${slideId}&t=${Date.now()}`, { cache: "no-store" })
+        ]);
+        
         if (res.ok) {
           const data = await res.json();
           setComments(data.comments || []);
+        }
+        if (rRes.ok) {
+          const rData = await rRes.json();
+          setReactions(rData.reactions || { question: 0 });
         }
       } catch (err) {}
     }, 3000);
     return () => clearInterval(interval);
   }, [showComments, slideId]);
 
-  const handleReact = async (type: 'thumbsUp' | 'heart') => {
-    setReactions(prev => ({ ...prev, [type]: prev[type] + 1 }));
+  const handleToggleQuestion = async () => {
+    const newState = !myQuestionActive;
+    setMyQuestionActive(newState);
+    
+    // Optimistic update
+    setReactions(prev => ({ 
+      ...prev, 
+      question: Math.max(0, prev.question + (newState ? 1 : -1)) 
+    }));
+    
     try {
       await fetch('/api/reactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slideId, type })
+        body: JSON.stringify({ slideId, type: 'question', increment: newState ? 1 : -1 })
       });
     } catch (e) {
-      setReactions(prev => ({ ...prev, [type]: prev[type] - 1 }));
+      // Revert on error
+      setMyQuestionActive(!newState);
+      setReactions(prev => ({ 
+        ...prev, 
+        question: Math.max(0, prev.question + (!newState ? 1 : -1)) 
+      }));
     }
   };
+
+  const isQuestionActiveGlobal = reactions.question > 0 || myQuestionActive;
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,34 +154,29 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
 
   return (
     <>
-      <div className="bg-zinc-900/90 backdrop-blur-md border border-zinc-800 rounded-2xl shadow-2xl p-4 w-full max-w-2xl mx-auto transition-all">
-      <div className="flex items-center justify-between">
-        <div className="flex gap-4">
-          <button 
-            onClick={() => handleReact('thumbsUp')}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-zinc-800 transition-colors text-zinc-300 hover:text-white"
-          >
-            <ThumbsUp size={18} className="text-yellow-500" />
-            <span className="font-mono text-sm">{reactions.thumbsUp}</span>
-          </button>
-          
-          <button 
-            onClick={() => handleReact('heart')}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-zinc-800 transition-colors text-zinc-300 hover:text-white"
-          >
-            <Heart size={18} className="text-pink-500" />
-            <span className="font-mono text-sm">{reactions.heart}</span>
-          </button>
-        </div>
+      <div className="flex items-center gap-3 justify-end w-full">
+        {/* Question Toggle Button */}
+        <button 
+          onClick={handleToggleQuestion}
+          title={isQuestionActiveGlobal ? "Someone has a question!" : "I have a question"}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-xl backdrop-blur-md border transition-all duration-300 ${
+            isQuestionActiveGlobal 
+              ? 'bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)] shadow-inner transform translate-y-0.5' 
+              : 'bg-zinc-900/90 border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 hover:-translate-y-0.5'
+          }`}
+        >
+          <HelpCircle size={20} className={isQuestionActiveGlobal ? 'fill-amber-500/20' : ''} />
+          {isQuestionActiveGlobal && <span className="font-medium text-sm">Question</span>}
+        </button>
         
+        {/* Comments Toggle Button */}
         <button 
           onClick={() => setShowComments(!showComments)}
-          className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 transition-colors"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 text-indigo-400 hover:text-indigo-300 hover:bg-zinc-800 shadow-xl transition-all duration-300 hover:-translate-y-0.5"
         >
-          <MessageSquare size={18} />
+          <MessageSquare size={20} />
           <span className="font-medium text-sm">{comments.length} Comments</span>
         </button>
-      </div>
       </div>
 
       {mounted && createPortal(

@@ -18,29 +18,27 @@ export async function GET(request: Request) {
 
   try {
     const reactions = await redis.hgetall(`presentation:slide:${slideId}:reactions`);
-    // Hash fields return as strings/numbers
     return NextResponse.json({ 
       reactions: {
-        thumbsUp: Number(reactions?.thumbsUp) || 0,
-        heart: Number(reactions?.heart) || 0,
+        question: Number(reactions?.question) || 0,
       } 
     });
   } catch (error) {
     console.error("Redis fetch error:", error);
-    return NextResponse.json({ reactions: { thumbsUp: 0, heart: 0 } });
+    return NextResponse.json({ reactions: { question: 0 } });
   }
 }
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { slideId, type } = body;
+    const { slideId, type, increment = 1 } = body;
 
     if (!slideId || !type) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    await redis.hincrby(`presentation:slide:${slideId}:reactions`, type, 1);
+    await redis.hincrby(`presentation:slide:${slideId}:reactions`, type, increment);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Redis write error:", error);

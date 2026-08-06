@@ -71,9 +71,11 @@ export function SlideDeck() {
         </div>
       </div>
 
-      {/* Interaction Panel (positioned below or over bottom) */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-full max-w-[800px] z-50 px-6">
-         <InteractionPanel slideId={currentSlide.id} />
+      {/* Interaction Panel (positioned below bottom right) */}
+      <div className="absolute bottom-12 right-0 w-full max-w-[1200px] left-1/2 -translate-x-1/2 z-50 px-12 flex justify-end">
+         <div className="w-auto">
+           <InteractionPanel slideId={currentSlide.id} />
+         </div>
       </div>
       
       {/* Slide Progress */}
