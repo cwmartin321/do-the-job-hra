@@ -114,32 +114,32 @@ export function ExportMenu() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative font-satoshi">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 bg-zinc-800/80 hover:bg-zinc-700 text-white rounded-full backdrop-blur transition-all border border-zinc-700 shadow-lg"
+        className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-50 text-[var(--color-brand-navy)] rounded-full backdrop-blur transition-all border border-gray-200 shadow-md"
       >
         <Download size={18} />
         <span className="text-sm font-medium">Export</span>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden z-50">
           <button
             onClick={exportPDF}
             disabled={isExporting}
-            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-zinc-200 hover:bg-zinc-800 transition-colors disabled:opacity-50"
+            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[var(--color-brand-navy)] hover:bg-gray-50 transition-colors disabled:opacity-50"
           >
-            {isExporting ? <Loader2 size={16} className="animate-spin" /> : <FileDown size={16} className="text-red-400" />}
+            {isExporting ? <Loader2 size={16} className="animate-spin" /> : <FileDown size={16} className="text-red-500" />}
             Download PDF
           </button>
-          <div className="h-px bg-zinc-800 w-full" />
+          <div className="h-px bg-gray-100 w-full" />
           <button
             onClick={exportMarkdown}
             disabled={isExporting}
-            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-zinc-200 hover:bg-zinc-800 transition-colors disabled:opacity-50"
+            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[var(--color-brand-navy)] hover:bg-gray-50 transition-colors disabled:opacity-50"
           >
-            {isExporting ? <Loader2 size={16} className="animate-spin" /> : <FileText size={16} className="text-blue-400" />}
+            {isExporting ? <Loader2 size={16} className="animate-spin" /> : <FileText size={16} className="text-[var(--color-brand-blue)]" />}
             Export Markdown
           </button>
         </div>
@@ -155,7 +155,7 @@ export function ExportMenu() {
               body {
                 margin: 0 !important;
                 padding: 0 !important;
-                background: black !important;
+                background: #F9F9F9 !important;
               }
               #pdf-export-container {
                 position: static !important;
@@ -183,22 +183,22 @@ export function ExportMenu() {
               }
             }
           `}} />
-          <div id="pdf-export-container" className="fixed left-[-9999px] top-0 w-[1200px] bg-black flex flex-col">
+          <div id="pdf-export-container" className="fixed left-[-9999px] top-0 w-[1200px] bg-[#F9F9F9] flex flex-col">
           {slides.map((slide) => (
-            <div key={slide.id} className="print-slide relative w-[1200px] h-[675px] flex items-center justify-center px-12 bg-black shrink-0">
+            <div key={slide.id} className="print-slide relative w-[1200px] h-[675px] flex items-center justify-center px-12 bg-[#F9F9F9] shrink-0">
               <div className="w-full h-full relative">
                 <Slide data={slide} isPrint={true} />
               </div>
             </div>
           ))}
 
-          <div className="print-appendix relative w-[1200px] min-h-[675px] p-16 bg-zinc-950 text-white flex flex-col items-center shrink-0">
-            <h1 className="text-4xl font-bold mb-12 text-indigo-400">Audience Comments Appendix</h1>
-            <div className="w-full max-w-4xl flex flex-col gap-8">
+          <div className="print-appendix relative w-[1200px] min-h-[675px] p-16 bg-white text-[var(--color-brand-navy)] flex flex-col items-center shrink-0">
+            <h1 className="text-4xl font-montserrat font-bold mb-12 text-[var(--color-brand-navy)]">Audience Comments Appendix</h1>
+            <div className="w-full max-w-4xl flex flex-col gap-8 font-satoshi">
               {Object.keys(pdfData.comments).length > 0 ? (
                 Object.entries(pdfData.comments).map(([title, comments]) => (
-                  <div key={title} className="bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800" style={{ pageBreakInside: 'avoid' }}>
-                    <h2 className="text-2xl font-bold mb-6 text-zinc-200">{title}</h2>
+                  <div key={title} className="bg-[#F9F9F9] p-8 rounded-2xl border border-gray-200" style={{ pageBreakInside: 'avoid' }}>
+                    <h2 className="text-2xl font-montserrat font-bold mb-6 text-[var(--color-brand-navy)]">{title}</h2>
                     <div className="space-y-4">
                       {comments.map((rawC, i) => {
                         let c = rawC;
@@ -211,14 +211,14 @@ export function ExportMenu() {
                         const timestamp = isLegacy ? null : new Date((c as CommentData).timestamp);
                         
                         return (
-                          <div key={isLegacy ? i : (c as CommentData).id} className="text-zinc-400 text-lg leading-relaxed">
-                            <span className="font-bold text-zinc-300">{name}</span>
+                          <div key={isLegacy ? i : (c as CommentData).id} className="text-[var(--color-brand-navy-light)] text-lg leading-relaxed">
+                            <span className="font-bold text-[var(--color-brand-blue)]">{name}</span>
                             {timestamp && (
-                              <span className="text-sm text-zinc-500 ml-2 font-mono">
+                              <span className="text-sm text-gray-500 ml-2 font-mono">
                                 {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                               </span>
                             )}
-                            <span className="mx-3 text-zinc-600">•</span>
+                            <span className="mx-3 text-gray-400">•</span>
                             {text}
                           </div>
                         );
@@ -227,7 +227,7 @@ export function ExportMenu() {
                   </div>
                 ))
               ) : (
-                <div className="text-zinc-500 text-2xl italic text-center py-20 bg-zinc-900/30 rounded-2xl border border-zinc-800/50">
+                <div className="text-gray-500 text-2xl italic text-center py-20 bg-gray-50 rounded-2xl border border-gray-200">
                   No audience comments found for this presentation.
                 </div>
               )}

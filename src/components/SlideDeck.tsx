@@ -38,7 +38,7 @@ export function SlideDeck() {
   const currentSlide = slides[currentIndex];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black overflow-hidden relative">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[var(--background)] overflow-hidden relative">
       <div className="absolute top-6 right-6 z-50">
         <ExportMenu />
       </div>
@@ -55,7 +55,7 @@ export function SlideDeck() {
           <button
             onClick={prevSlide}
             disabled={currentIndex === 0}
-            className="p-2 rounded-full bg-black/60 text-white hover:bg-black/90 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
+            className="p-2 rounded-full bg-[var(--color-brand-navy)]/5 text-[var(--color-brand-navy)] hover:bg-[var(--color-brand-navy)]/10 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
           >
             <ChevronLeft size={24} />
           </button>
@@ -64,7 +64,7 @@ export function SlideDeck() {
           <button
             onClick={nextSlide}
             disabled={currentIndex === slides.length - 1}
-            className="p-2 rounded-full bg-black/60 text-white hover:bg-black/90 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
+            className="p-2 rounded-full bg-[var(--color-brand-navy)]/5 text-[var(--color-brand-navy)] hover:bg-[var(--color-brand-navy)]/10 disabled:opacity-30 backdrop-blur-md transition-all hover:scale-110"
           >
             <ChevronRight size={24} />
           </button>
@@ -79,15 +79,15 @@ export function SlideDeck() {
       </div>
       
       {/* Slide Progress */}
-      <div className="absolute bottom-4 left-0 w-full px-12 flex justify-between text-zinc-600 font-mono text-sm z-30 pointer-events-none">
+      <div className="absolute bottom-4 left-0 w-full px-12 flex justify-between text-[var(--color-brand-navy-light)] font-satoshi font-medium text-sm z-30 pointer-events-none opacity-60">
         <span>do-the-job-hra</span>
         <span>{currentIndex + 1} / {slides.length}</span>
       </div>
       
       {/* Progress bar at very bottom */}
-      <div className="absolute bottom-0 left-0 h-1 bg-zinc-900 w-full z-30">
+      <div className="absolute bottom-0 left-0 h-1.5 bg-[var(--color-brand-seafoam-light)]/40 w-full z-30">
         <div 
-          className="h-full bg-indigo-600 transition-all duration-300 ease-out" 
+          className="h-full bg-[var(--color-brand-seafoam)] transition-all duration-300 ease-out shadow-[0_0_10px_var(--color-brand-seafoam)]" 
           style={{ width: `${((currentIndex + 1) / slides.length) * 100}%` }}
         />
       </div>

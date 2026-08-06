@@ -159,20 +159,20 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
         <button 
           onClick={handleToggleQuestion}
           title={isQuestionActiveGlobal ? "Someone has a question!" : "I have a question"}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-xl backdrop-blur-md border transition-all duration-300 ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-md backdrop-blur-md border transition-all duration-300 ${
             isQuestionActiveGlobal 
-              ? 'bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)] shadow-inner transform translate-y-0.5' 
-              : 'bg-zinc-900/90 border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 hover:-translate-y-0.5'
+              ? 'bg-[var(--color-brand-seafoam-light)]/30 border-[var(--color-brand-seafoam)] text-[var(--color-brand-navy)] shadow-inner transform translate-y-0.5' 
+              : 'bg-white border-gray-200 text-gray-500 hover:text-[var(--color-brand-navy)] hover:bg-gray-50 hover:-translate-y-0.5'
           }`}
         >
-          <Hand size={20} className={isQuestionActiveGlobal ? 'fill-amber-500/20' : ''} />
+          <Hand size={20} className={isQuestionActiveGlobal ? 'fill-[var(--color-brand-seafoam)] text-[var(--color-brand-seafoam)]' : ''} />
           {isQuestionActiveGlobal && <span className="font-medium text-sm">Question</span>}
         </button>
         
         {/* Comments Toggle Button */}
         <button 
           onClick={() => setShowComments(!showComments)}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 text-indigo-400 hover:text-indigo-300 hover:bg-zinc-800 shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white backdrop-blur-md border border-gray-200 text-[var(--color-brand-blue)] hover:text-[var(--color-brand-navy)] hover:bg-gray-50 shadow-md transition-all duration-300 hover:-translate-y-0.5"
         >
           <MessageSquare size={20} />
           <span className="font-medium text-sm">{comments.length} Comments</span>
@@ -187,16 +187,16 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "100%", opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 w-80 h-full bg-zinc-900/95 backdrop-blur-xl border-l border-zinc-800 shadow-2xl z-[100] flex flex-col text-left"
+            className="fixed top-0 right-0 w-80 h-full bg-[#F9F9F9]/95 backdrop-blur-xl border-l border-gray-200 shadow-[rgba(12,19,58,0.1)_0px_10px_40px] z-[100] flex flex-col text-left font-satoshi"
           >
-            <div className="p-5 border-b border-zinc-800 flex justify-between items-center bg-zinc-900">
-              <h3 className="text-zinc-200 font-medium flex items-center gap-2">
-                <MessageSquare size={18} className="text-indigo-400" />
+            <div className="p-5 border-b border-gray-200 flex justify-between items-center bg-white">
+              <h3 className="text-[var(--color-brand-navy)] font-bold flex items-center gap-2 font-montserrat">
+                <MessageSquare size={18} className="text-[var(--color-brand-blue)]" />
                 Comments
               </h3>
               <button 
                 onClick={() => setShowComments(false)}
-                className="text-zinc-500 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-[var(--color-brand-navy)] transition-colors"
               >
                 <X size={20} />
               </button>
@@ -204,7 +204,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
             
             <div className="flex-1 overflow-y-auto p-5 space-y-4">
               {comments.length === 0 ? (
-                <p className="text-zinc-500 text-sm italic text-center py-8">No comments yet. Be the first!</p>
+                <p className="text-gray-400 text-sm italic text-center py-8">No comments yet. Be the first!</p>
               ) : (
                 comments.map((rawC, i) => {
                   let c = rawC;
@@ -218,25 +218,25 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
                   const timestamp = isLegacy ? null : new Date((c as CommentData).timestamp);
 
                   return (
-                    <div key={isLegacy ? i : (c as CommentData).id} className="group bg-zinc-800/60 p-4 rounded-xl text-sm text-zinc-200 shadow-sm border border-zinc-700/50 relative">
+                    <div key={isLegacy ? i : (c as CommentData).id} className="group bg-white p-4 rounded-xl text-sm text-[var(--color-brand-navy)] shadow-sm border border-gray-100 relative">
                       <div className="flex justify-between items-start mb-1.5">
-                        <span className="font-bold text-indigo-400">{name}</span>
+                        <span className="font-bold text-[var(--color-brand-blue)]">{name}</span>
                         <div className="flex items-center gap-3">
                           {timestamp && (
-                            <span className="text-[10px] text-zinc-500 font-mono">
+                            <span className="text-[10px] text-gray-400 font-mono">
                               {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </span>
                           )}
                           <button
                             onClick={() => handleDeleteComment(c)}
-                            className="opacity-0 group-hover:opacity-100 text-zinc-500 hover:text-red-400 transition-all focus:opacity-100"
+                            className="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-500 transition-all focus:opacity-100"
                             title="Delete comment"
                           >
                             <Trash2 size={14} />
                           </button>
                         </div>
                       </div>
-                      <div className="text-zinc-300 leading-relaxed">
+                      <div className="text-[var(--color-brand-navy-light)] leading-relaxed">
                         {text}
                       </div>
                     </div>
@@ -245,14 +245,14 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
               )}
             </div>
             
-            <div className="p-5 border-t border-zinc-800 bg-zinc-900">
+            <div className="p-5 border-t border-gray-200 bg-white">
               <form onSubmit={handleCommentSubmit} className="flex flex-col gap-3">
                 <input
                   type="text"
                   value={commentName}
                   onChange={(e) => setCommentName(e.target.value)}
                   placeholder="Your Name (optional)"
-                  className="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="bg-[#F9F9F9] border border-gray-200 rounded-xl px-4 py-2 text-sm text-[var(--color-brand-navy)] placeholder:text-gray-400 focus:outline-none focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)] transition-all"
                 />
                 <div className="flex gap-3">
                   <input
@@ -260,12 +260,12 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a live comment..."
-                    className="flex-1 bg-black border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                    className="flex-1 bg-[#F9F9F9] border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-[var(--color-brand-navy)] placeholder:text-gray-400 focus:outline-none focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)] transition-all"
                   />
                   <button 
                     type="submit"
                     disabled={!newComment.trim() || isSubmitting}
-                    className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-zinc-800 disabled:text-zinc-500 text-white p-2.5 px-4 rounded-xl transition-colors flex items-center justify-center"
+                    className="bg-[var(--color-brand-blue)] hover:bg-[#1E306E] disabled:bg-gray-200 disabled:text-gray-400 text-white p-2.5 px-4 rounded-xl shadow-sm transition-colors flex items-center justify-center"
                   >
                     <Send size={18} />
                   </button>
