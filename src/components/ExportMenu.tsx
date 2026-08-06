@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { flushSync } from "react-dom";
+import { flushSync, createPortal } from "react-dom";
 import { Download, FileText, FileDown, Loader2 } from "lucide-react";
 import { slides } from "@/config/slides";
 import { Slide } from "./Slide";
@@ -128,23 +128,37 @@ export function ExportMenu() {
         </div>
       )}
 
-      {pdfData.ready && (
+      {pdfData.ready && createPortal(
         <>
           <style dangerouslySetInnerHTML={{__html: `
             @media print {
-              body * {
-                visibility: hidden;
+              body > *:not(#pdf-export-container):not(script):not(style) {
+                display: none !important;
               }
-              #pdf-export-container, #pdf-export-container * {
-                visibility: visible;
+              body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: black !important;
               }
               #pdf-export-container {
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 1200px !important;
+                position: static !important;
+                width: 100% !important;
+                display: block !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+              }
+              .print-slide {
+                width: 100% !important;
+                height: 100vh !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                box-sizing: border-box !important;
+              }
+              .print-appendix {
+                width: 100% !important;
+                min-height: 100vh !important;
+                height: auto !important;
+                box-sizing: border-box !important;
               }
               @page {
                 size: landscape;
@@ -152,9 +166,9 @@ export function ExportMenu() {
               }
             }
           `}} />
-          <div id="pdf-export-container" className="fixed left-[-9999px] top-0 w-[1200px] bg-black flex flex-col overflow-hidden">
+          <div id="pdf-export-container" className="fixed left-[-9999px] top-0 w-[1200px] bg-black flex flex-col">
           {slides.map((slide) => (
-            <div key={slide.id} className="relative w-[1200px] h-[675px] flex items-center justify-center px-12 bg-black shrink-0">
+            <div key={slide.id} className="print-slide relative w-[1200px] h-[675px] flex items-center justify-center px-12 bg-black shrink-0">
               <div className="w-full h-full relative">
                 <Slide data={slide} />
               </div>
@@ -162,11 +176,11 @@ export function ExportMenu() {
           ))}
 
           {Object.keys(pdfData.comments).length > 0 && (
-            <div className="relative w-[1200px] min-h-[675px] p-16 bg-zinc-950 text-white flex flex-col items-center shrink-0">
+            <div className="print-appendix relative w-[1200px] min-h-[675px] p-16 bg-zinc-950 text-white flex flex-col items-center shrink-0">
               <h1 className="text-4xl font-bold mb-12 text-indigo-400">Audience Comments Appendix</h1>
               <div className="w-full max-w-4xl flex flex-col gap-8">
                 {Object.entries(pdfData.comments).map(([title, comments]) => (
-                  <div key={title} className="bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800">
+                  <div key={title} className="bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800" style={{ pageBreakInside: 'avoid' }}>
                     <h2 className="text-2xl font-bold mb-6 text-zinc-200">{title}</h2>
                     <div className="space-y-4">
                       {comments.map((c, i) => (
@@ -189,7 +203,8 @@ export function ExportMenu() {
             </div>
           )}
         </div>
-        </>
+        </>,
+        document.body
       )}
     </div>
   );
