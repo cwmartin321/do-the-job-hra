@@ -13,13 +13,14 @@ export function ExportMenu() {
       // Dynamically import html2pdf.js only on the client side
       const html2pdf = (await import("html2pdf.js")).default;
       const element = document.getElementById("presentation-container");
+      if (!element) throw new Error("Presentation container not found");
       
       const opt = {
         margin: 0,
         filename: 'presentation.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg' as const, quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'in', format: '16by9', orientation: 'landscape' }
+        jsPDF: { unit: 'in', format: '16by9' as const, orientation: 'landscape' as const }
       };
 
       await html2pdf().set(opt).from(element).save();
