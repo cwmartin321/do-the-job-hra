@@ -4,16 +4,17 @@ import { flushSync, createPortal } from "react-dom";
 import { Download, FileText, FileDown, Loader2 } from "lucide-react";
 import { slides } from "@/config/slides";
 import { Slide } from "./Slide";
+import type { CommentData } from "./InteractionPanel";
 
 export function ExportMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
-  const [pdfData, setPdfData] = useState<{ comments: Record<string, string[]>, ready: boolean }>({ comments: {}, ready: false });
+  const [pdfData, setPdfData] = useState<{ comments: Record<string, (string | CommentData)[]>, ready: boolean }>({ comments: {}, ready: false });
 
   const exportPDF = async () => {
     setIsExporting(true);
     try {
-      const allComments: Record<string, string[]> = {};
+      const allComments: Record<string, (string | CommentData)[]> = {};
       for (const slide of slides) {
         try {
           const res = await fetch(`/api/comments?slideId=${slide.id}&t=${Date.now()}`, { cache: "no-store" });
@@ -77,8 +78,12 @@ export function ExportMenu() {
             const data = await res.json();
             if (data.comments && data.comments.length > 0) {
               mdContent += `### Audience Comments\n`;
-              data.comments.forEach((c: string) => {
-                mdContent += `> ${c}\n\n`;
+              data.comments.forEach((c: string | CommentData) => {
+                const isLegacy = typeof c === 'string';
+                const name = isLegacy ? (c as string).split(': ')[0] : (c as CommentData).name;
+                const text = isLegacy ? (c as string).substring((c as string).indexOf(': ') + 2) : (c as CommentData).text;
+                const timestamp = isLegacy ? '' : ` (${new Date((c as CommentData).timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`;
+                mdContent += `> **${name}**${timestamp}: ${text}\n\n`;
               });
             }
           }
@@ -191,19 +196,25 @@ export function ExportMenu() {
                   <div key={title} className="bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800" style={{ pageBreakInside: 'avoid' }}>
                     <h2 className="text-2xl font-bold mb-6 text-zinc-200">{title}</h2>
                     <div className="space-y-4">
-                      {comments.map((c, i) => (
-                        <div key={i} className="text-zinc-400 text-lg leading-relaxed">
-                           {c.includes(': ') ? (
-                            <>
-                              <span className="font-bold text-zinc-300">{c.split(': ')[0]}</span>
-                              <span className="mx-3 text-zinc-600">•</span>
-                              {c.substring(c.indexOf(': ') + 2)}
-                            </>
-                          ) : (
-                            c
-                          )}
-                        </div>
-                      ))}
+                      {comments.map((c, i) => {
+                        const isLegacy = typeof c === 'string';
+                        const name = isLegacy ? (c as string).split(': ')[0] : (c as CommentData).name;
+                        const text = isLegacy ? (c as string).substring((c as string).indexOf(': ') + 2) : (c as CommentData).text;
+                        const timestamp = isLegacy ? null : new Date((c as CommentData).timestamp);
+                        
+                        return (
+                          <div key={isLegacy ? i : (c as CommentData).id} className="text-zinc-400 text-lg leading-relaxed">
+                            <span className="font-bold text-zinc-300">{name}</span>
+                            {timestamp && (
+                              <span className="text-sm text-zinc-500 ml-2 font-mono">
+                                {timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                            )}
+                            <span className="mx-3 text-zinc-600">•</span>
+                            {text}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 ))

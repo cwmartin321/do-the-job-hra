@@ -41,3 +41,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Failed to post comment" }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const body = await request.json();
+    const { slideId, comment } = body;
+
+    if (!slideId || !comment) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    await redis.lrem(`presentation:slide:${slideId}:comments`, 0, comment);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Redis delete error:", error);
+    return NextResponse.json({ error: "Failed to delete comment" }, { status: 500 });
+  }
+}
