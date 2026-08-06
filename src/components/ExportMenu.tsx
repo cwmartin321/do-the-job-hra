@@ -170,7 +170,7 @@ export function ExportMenu() {
           {slides.map((slide) => (
             <div key={slide.id} className="print-slide relative w-[1200px] h-[675px] flex items-center justify-center px-12 bg-black shrink-0">
               <div className="w-full h-full relative">
-                <Slide data={slide} />
+                <Slide data={slide} isPrint={true} />
               </div>
             </div>
           ))}
