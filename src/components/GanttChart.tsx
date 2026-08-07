@@ -15,13 +15,13 @@ export default function GanttChart() {
   // You can easily edit these tasks, adjust durations, or change colors here.
   const tasks: Task[] = [
     { id: '1', name: 'Project Kickoff & Alignment', phase: 'Initiation', startWeek: 1, duration: 1, color: 'bg-[var(--color-brand-navy)]', details: "Aligning on project scope, timeline, and key stakeholders to ensure smooth execution." },
-    { id: '2', name: 'Goal Setting & Philosophy', phase: 'Assessment', startWeek: 1, duration: 2, color: 'bg-[var(--color-brand-blue)]', details: "Defining compensation goals and establishing the philosophy for evaluating pay equity." },
-    { id: '3', name: 'HRIS Data Extraction', phase: 'Data', startWeek: 2, duration: 2, color: 'bg-[var(--color-brand-seafoam)]', details: "Extracting, formatting, and verifying demographic and compensation data from the HRIS." },
-    { id: '4', name: 'Configuration & Job Classification', phase: 'Configuration', startWeek: 3, duration: 2, color: 'bg-[var(--color-brand-gold)]', details: "Setting up the platform architecture and mapping internal job classifications." },
+    { id: '2', name: 'Goal Setting & Philosophy', phase: 'Assessment', startWeek: 1, duration: 2, color: 'bg-[var(--color-brand-blue)]', details: "Defining success metrics and establishing the philosophy for evaluating pay equity." },
+    { id: '3', name: 'HRIS Data Extraction', phase: 'Data', startWeek: 2, duration: 2, color: 'bg-[var(--color-brand-seafoam)]', details: "Connecting, extracting, formatting, and verifying demographic and compensation data from the HRIS." },
+    { id: '4', name: 'Configuration & Job Classification', phase: 'Configuration', startWeek: 3, duration: 2, color: 'bg-[var(--color-brand-gold)]', details: "Setting up the platform architecture and mapping internal employee and job data." },
     { id: '5', name: 'Methodology Enablement', phase: 'Education', startWeek: 4, duration: 1, color: 'bg-[var(--color-brand-navy-light)]', details: "Educating the team on the underlying statistical methodologies used in the software." },
     { id: '6', name: 'Initial Regression Analysis', phase: 'Testing', startWeek: 4, duration: 3, color: 'bg-[var(--color-brand-blue)]', details: "Running preliminary regression models to identify potential pay disparities." },
     { id: '7', name: 'Model Refinement, User Training & Process Development', phase: 'Deployment', startWeek: 6, duration: 2, color: 'bg-[var(--color-brand-seafoam)]', details: "Refining models based on initial findings and training users on system navigation." },
-    { id: '8', name: 'Stabilization & Monitoring', phase: 'Post-Launch', startWeek: 8, duration: 1, color: 'bg-[var(--color-brand-gold)]', details: "Monitoring ongoing equity compliance and ensuring system stability post-launch." },
+    { id: '8', name: 'Stabilization & Monitoring', phase: 'Post-Launch', startWeek: 8, duration: 1, color: 'bg-[var(--color-brand-gold)]', details: "Monitoring ongoing pay equity compliance and ensuring organizational readiness post-launch." },
   ];
 
   const [hoveredTaskId, setHoveredTaskId] = useState<string | null>(null);
@@ -30,7 +30,7 @@ export default function GanttChart() {
 
   return (
     <div className="w-full h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden text-sm font-satoshi mt-2">
-      
+
       {/* Header: Weeks */}
       <div className="grid grid-cols-12 bg-[#F9F9F9] border-b border-gray-200 py-1.5 text-[var(--color-brand-navy)] font-bold text-center text-xs shrink-0">
         <div className="col-span-4 text-left px-6">Project Phase & Activities</div>
@@ -45,21 +45,21 @@ export default function GanttChart() {
       <div className="divide-y divide-gray-100 flex-1 flex flex-col min-h-0">
         {tasks.map((task) => (
           <div key={task.id} className="grid grid-cols-12 items-center hover:bg-gray-50 transition-colors flex-1 min-h-0">
-            
+
             {/* Task Name & Phase */}
             <div className="col-span-4 px-6 h-full flex justify-between items-center relative group z-20">
               <div className="flex flex-col justify-center max-w-[90%]">
                 <span className="text-[9px] font-bold text-[var(--color-brand-navy-light)] uppercase tracking-wider mb-0.5">{task.phase}</span>
                 <span className="font-medium text-[var(--color-brand-navy)] text-xs leading-tight">{task.name}</span>
               </div>
-              
-              <div 
+
+              <div
                 className="relative flex items-center justify-center p-2 cursor-pointer"
                 onMouseEnter={() => setHoveredTaskId(task.id)}
                 onMouseLeave={() => setHoveredTaskId(null)}
               >
                 <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-seafoam)] animate-pulse shadow-[0_0_8px_rgba(87,204,153,0.6)]" />
-                
+
                 <AnimatePresence>
                   {hoveredTaskId === task.id && (
                     <motion.div
