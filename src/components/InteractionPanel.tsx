@@ -30,9 +30,6 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
     } else {
       setMyQuestionActive(false);
     }
-    // Reset state when slide changes
-    setShowComments(false);
-    setNewComment("");
     
     // Fetch initial data
     const fetchData = async () => {
