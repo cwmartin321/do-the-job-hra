@@ -165,7 +165,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
               : 'bg-white border-gray-200 text-gray-500 hover:text-[var(--color-brand-navy)] hover:bg-gray-50 hover:-translate-y-0.5'
           }`}
         >
-          <Hand size={20} className={isQuestionActiveGlobal ? 'fill-[var(--color-brand-seafoam)] text-[var(--color-brand-seafoam)]' : ''} />
+          <Hand size={20} className={isQuestionActiveGlobal ? 'text-[var(--color-brand-seafoam)] stroke-[2.5]' : ''} />
           {isQuestionActiveGlobal && <span className="font-medium text-sm">Question</span>}
         </button>
         
