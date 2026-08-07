@@ -10,8 +10,13 @@ export const slides: SlideData[] = [
   {
     id: "slide-0-cover",
     title: "Roadmap to Success: Implementing Our Software Solutions",
-    body: "Presented by Christopher W Martin | Implementation Manager Assessment",
-    bulletPoints: []
+    body: "A Fortune 100 Pharmaceutical case study exploring the transition to a self-regulated, enterprise pay equity model. Presented by Christopher W Martin.",
+    bulletPoints: [
+      "Strategic needs assessment and solution alignment.",
+      "8-week enterprise project plan and execution.",
+      "Proactive risk management and governance framework.",
+      "Global methodology training and immediate ROI."
+    ]
   },
   {
     id: "slide-1-the-catalyst",
@@ -20,7 +25,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Shift away from point-in-time, reactive audits.",
       "Prepare for upcoming global job architecture realignments.",
-      "Empower internal teams to self-regulate pay fairness."
+      "Empower internal teams to self-regulate pay fairness.",
+      "Enable proactive responses to shifting legal landscapes."
     ]
   },
   {
@@ -30,7 +36,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Gain total control over model inputs and evaluation criteria.",
       "Deliver higher confidence in mathematical outputs.",
-      "Significantly reduce analysis turnaround time."
+      "Significantly reduce analysis turnaround time.",
+      "Establish a consistent, repeatable global governance framework."
     ]
   },
   {
@@ -40,7 +47,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Evaluated past reliance on external consultants and lawyers.",
       "Defined success via optimized remediation budgets.",
-      "Established analysis coverage targets for the employee population."
+      "Established analysis coverage targets for the employee population.",
+      "Identified key requirements for multi-national model designs."
     ]
   },
   {
@@ -50,7 +58,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Addressed existing and evolving global pay regulations.",
       "Educated stakeholders on legal defensibility of the software.",
-      "Demonstrated the statistical rigor of out-of-the-box methodologies."
+      "Demonstrated the statistical rigor of out-of-the-box methodologies.",
+      "Adapted to unique industry-specific workforce footprints."
     ]
   },
   {
@@ -77,7 +86,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Provided clear expectations for minimum data requirements.",
       "Dedicated weekly calls strictly to data review and gap analysis.",
-      "Ran continuous integration tests via Workday ISU."
+      "Ran continuous integration tests via Workday ISU.",
+      "Ensured secure authentication and ISU system management."
     ]
   },
   {
@@ -87,7 +97,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Established a core working team to maintain project momentum.",
       "Locked in foundational integration readiness requirements.",
-      "Clearly defined core roles to protect against external delays."
+      "Clearly defined core roles to protect against external delays.",
+      "Aligned shifting priorities with realistic milestone targets."
     ]
   },
   {
@@ -97,7 +108,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Utilized the customer's live data to validate statistical models.",
       "Taught interpretation of results and equity issue resolution.",
-      "Built trust in the platform's mathematical output."
+      "Built trust in the platform's mathematical output.",
+      "Transitioned users away from black-box consulting models."
     ]
   },
   {
@@ -107,7 +119,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Developed internal Subject Matter Experts (SMEs) to upskill teams.",
       "Supplied on-demand video tracking the customer journey.",
-      "Created tailored tracks for Comp, Talent Acquisition, and HR."
+      "Created tailored tracks for Comp, Talent Acquisition, and HR.",
+      "Supported localized teams with scheduled drop-in office hours."
     ]
   },
   {
@@ -117,7 +130,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Finalized direct Workday integration for automated updates.",
       "Deployed comprehensive training plans across Americas, EMEA, and APAC.",
-      "Established strategic 6-month and 12-month compliance milestones."
+      "Established strategic 6-month and 12-month compliance milestones.",
+      "Completed initial remediation strategy within 8 weeks."
     ]
   },
   {
@@ -127,7 +141,8 @@ export const slides: SlideData[] = [
     bulletPoints: [
       "Completed multiple regulatory reports across global jurisdictions.",
       "Reviewed two major acquisition populations for job framework equity.",
-      "Achieved sustained self-regulation for ongoing fairness."
+      "Achieved sustained self-regulation for ongoing fairness.",
+      "Eliminated the financial drag of annual consultant fees."
     ]
   }
 ];
