@@ -147,7 +147,9 @@ const PillarsLayout = ({ items }: { items: SlideData['pillars'] }) => (
         <div className="w-16 h-16 rounded-full bg-[var(--color-brand-seafoam-light)]/20 flex items-center justify-center shrink-0 mb-5 mt-2">
           <Icon name={item.icon} className="w-8 h-8 text-[var(--color-brand-navy)]" />
         </div>
-        <h4 className="text-[17px] font-montserrat font-bold text-[var(--color-brand-navy)] mb-4">{item.title}</h4>
+        <div className="h-[3rem] flex items-center justify-center w-full mb-4">
+          <h4 className="text-[17px] font-montserrat font-bold text-[var(--color-brand-navy)] leading-tight">{item.title}</h4>
+        </div>
         <div className="w-12 h-0.5 bg-gray-100 mb-4 shrink-0" />
         <p className="text-[13px] font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed">{item.description}</p>
       </motion.div>
