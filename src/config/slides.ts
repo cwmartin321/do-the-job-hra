@@ -179,5 +179,17 @@ export const slides: SlideData[] = [
       { title: "Risk Mitigation", description: "Avoid costly regulatory penalties and burdens through continuous monitoring.", visual: "regulatory" },
       { title: "Employee Trust", description: "Improve employee satisfaction and trust by increasing organizational transparency.", visual: "satisfaction" }
     ]
+  },
+  {
+    id: "slide-14-appendix",
+    title: "Appendix: ~~The Presentation as a Product~~",
+    body: "This slide deck was custom-built as a live, interactive web application to demonstrate how modern tools can transform standard client check-ins into highly collaborative experiences.",
+    layout: 'split',
+    splitContent: { icon: "Laptop", sideText: "Software as a Presentation" },
+    bulletPoints: [
+      "*The Interactive Experience*: A dynamic, premium experience commands attention and elevates the brand during critical implementation phases.",
+      "*Real-Time Pulse Checks*: The persistent 'hand raise' acts as a frictionless feedback loop, allowing clients to signal confusion instantly.",
+      "*Actionable Takeaways*: Seamlessly captures all collaborative notes and questions into a persistent artifact, ensuring alignment post-meeting."
+    ]
   }
 ];
