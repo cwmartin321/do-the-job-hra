@@ -82,14 +82,14 @@ const ProcessList = ({ steps }: { steps: SlideData['processSteps'] }) => (
 );
 
 const StatsGrid = ({ stats }: { stats: SlideData['stats'] }) => (
-  <div className="grid grid-cols-2 gap-8 flex-1 min-h-0 items-center justify-center">
+  <div className="grid grid-cols-2 gap-8 flex-1 min-h-0 items-stretch content-center">
     {stats?.map((stat, i) => (
       <motion.div 
         key={i}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 + i * 0.1 }}
-        className="bg-white border border-gray-100 rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden"
+        className="bg-white border border-gray-100 rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden h-full w-full"
       >
         <div className="absolute top-0 left-0 w-full h-2 bg-[var(--color-brand-seafoam)]" />
         <div className="text-4xl font-montserrat font-black text-[var(--color-brand-navy)] mb-4">{parseText(stat.value)}</div>
