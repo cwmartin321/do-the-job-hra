@@ -23,6 +23,13 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    // Restore local state
+    const savedState = localStorage.getItem(`question-active-${slideId}`);
+    if (savedState === 'true') {
+      setMyQuestionActive(true);
+    } else {
+      setMyQuestionActive(false);
+    }
     // Reset state when slide changes
     setShowComments(false);
     setNewComment("");
@@ -78,6 +85,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
   const handleToggleQuestion = async () => {
     const newState = !myQuestionActive;
     setMyQuestionActive(newState);
+    localStorage.setItem(`question-active-${slideId}`, String(newState));
     
     // Optimistic update
     setReactions(prev => ({ 
@@ -94,6 +102,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
     } catch (e) {
       // Revert on error
       setMyQuestionActive(!newState);
+      localStorage.setItem(`question-active-${slideId}`, String(!newState));
       setReactions(prev => ({ 
         ...prev, 
         question: Math.max(0, prev.question + (!newState ? 1 : -1)) 
