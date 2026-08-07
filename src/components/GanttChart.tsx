@@ -8,6 +8,7 @@ type Task = {
   startWeek: number; // 1 through 8
   duration: number; // Number of weeks the task spans
   color: string; // Tailwind background color class
+  details: string;
   owner?: string;
 };
 
