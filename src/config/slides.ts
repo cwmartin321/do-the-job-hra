@@ -183,13 +183,13 @@ export const slides: SlideData[] = [
   {
     id: "slide-14-appendix",
     title: "Appendix: ~~The Presentation as a Product~~",
-    body: "This slide deck was custom-built as a live, interactive web application to demonstrate how modern tools can transform standard client check-ins into highly collaborative experiences.",
-    layout: 'split',
-    splitContent: { icon: "Laptop", sideText: "Software as a Presentation" },
-    bulletPoints: [
-      "*The Interactive Experience*: A dynamic, premium experience commands attention and elevates the brand during critical implementation phases.",
-      "*Real-Time Pulse Checks*: The persistent 'hand raise' acts as a frictionless feedback loop, allowing clients to signal confusion instantly.",
-      "*Actionable Takeaways*: Seamlessly captures all collaborative notes and questions into a persistent artifact, ensuring alignment post-meeting."
+    body: "We replaced the static deck with a live, interactive application to demonstrate how modern tools can transform standard client check-ins into highly collaborative experiences.",
+    layout: 'icon-grid',
+    iconGridItems: [
+      { icon: "Laptop", title: "Premium Experience", text: "A dynamic, fully-branded interface elevates the brand and commands client attention during implementation." },
+      { icon: "Hand", title: "Frictionless Feedback", text: "The persistent 'hand raise' allows clients to signal confusion instantly without interrupting the flow." },
+      { icon: "MessageSquare", title: "Live Collaboration", text: "Real-time commenting captures all notes, questions, and alignment directly within the presentation." },
+      { icon: "Download", title: "Actionable Takeaways", text: "Export the session into a persistent artifact, ensuring no client concern falls through the cracks." }
     ]
   }
 ];
