@@ -56,9 +56,8 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
     fetchData();
   }, [slideId]);
 
-  // Live polling for comments
+  // Live polling for comments and reactions
   useEffect(() => {
-    if (!showComments) return;
     const interval = setInterval(async () => {
       try {
         const [res, rRes] = await Promise.all([
