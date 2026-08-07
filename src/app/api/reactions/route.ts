@@ -17,7 +17,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const reactions = await redis.hgetall(`presentation:slide:${slideId}:reactions`);
+    const reactions = await redis.hgetall(`presentation:slide:${slideId}:reactions:v2`);
     return NextResponse.json({ 
       reactions: {
         question: Number(reactions?.question) || 0,
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    await redis.hincrby(`presentation:slide:${slideId}:reactions`, type, increment);
+    await redis.hincrby(`presentation:slide:${slideId}:reactions:v2`, type, increment);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Redis write error:", error);
