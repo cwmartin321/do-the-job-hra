@@ -13,11 +13,11 @@ export default function GanttChart() {
   // You can easily edit these tasks, adjust durations, or change colors here.
   const tasks: Task[] = [
     { id: '1', name: 'Project Kickoff & Alignment', phase: 'Initiation', startWeek: 1, duration: 1, color: 'bg-[var(--color-brand-navy)]' },
-    { id: '2', name: 'Needs Mapping & Philosophy', phase: 'Assessment', startWeek: 1, duration: 2, color: 'bg-[var(--color-brand-blue)]' },
+    { id: '2', name: 'Goal Setting & Philosophy', phase: 'Assessment', startWeek: 1, duration: 2, color: 'bg-[var(--color-brand-blue)]' },
     { id: '3', name: 'HRIS Data Extraction', phase: 'Data', startWeek: 2, duration: 2, color: 'bg-[var(--color-brand-seafoam)]' },
     { id: '4', name: 'Configuration & Job Classification', phase: 'Configuration', startWeek: 3, duration: 2, color: 'bg-[var(--color-brand-gold)]' },
-    { id: '5', name: 'Methodology Enablement', phase: 'Testing', startWeek: 4, duration: 2, color: 'bg-[var(--color-brand-navy-light)]' },
-    { id: '6', name: 'Initial Regression Analysis', phase: 'Training', startWeek: 5, duration: 3, color: 'bg-[var(--color-brand-blue)]' },
+    { id: '5', name: 'Methodology Enablement', phase: 'Education', startWeek: 4, duration: 2, color: 'bg-[var(--color-brand-navy-light)]' },
+    { id: '6', name: 'Initial Regression Analysis', phase: 'Testing', startWeek: 5, duration: 3, color: 'bg-[var(--color-brand-blue)]' },
     { id: '7', name: 'Model Refinement, User Training & Process Development', phase: 'Deployment', startWeek: 8, duration: 1, color: 'bg-[var(--color-brand-seafoam)]' },
     { id: '8', name: 'Stabilization & Monitoring', phase: 'Post-Launch', startWeek: 8, duration: 1, color: 'bg-[var(--color-brand-gold)]' },
   ];
