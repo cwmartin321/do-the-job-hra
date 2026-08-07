@@ -9,8 +9,8 @@ export type SlideData = {
 export const slides: SlideData[] = [
   {
     id: "slide-0-cover",
-    title: "Roadmap to Success: Implementing Our Software Solutions",
-    body: "A Fortune 100 Pharmaceutical case study exploring the transition to a self-regulated, enterprise pay equity model. Presented by Christopher W Martin.",
+    title: "Roadmap to Success:\nImplementing Pay Equity Software",
+    body: "A Fortune 100 Pharmaceutical case study exploring the transition to a self-regulated, enterprise pay equity model.\n\nPresented by:\nChris Martin",
     bulletPoints: [
       "Strategic needs assessment and solution alignment.",
       "8-week enterprise project plan and execution.",

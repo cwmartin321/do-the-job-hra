@@ -8,10 +8,10 @@ export function Slide({ data, isPrint = false }: { data: SlideData; isPrint?: bo
     return (
       <div className={`flex flex-col h-full w-full ${data.component ? 'px-12 py-8' : 'p-16'} bg-white rounded-3xl shadow-[0_10px_40px_-10px_rgba(12,19,58,0.1)] border border-[var(--color-brand-navy)]/5`}>
         <div className="flex-1 flex flex-col min-h-0">
-          <h2 className={`font-montserrat font-bold text-[var(--color-brand-navy)] tracking-tight ${data.component ? 'text-4xl mb-2 shrink-0' : 'text-5xl mb-8 shrink-0'}`}>
+          <h2 className={`whitespace-pre-line font-montserrat font-bold text-[var(--color-brand-navy)] tracking-tight ${data.component ? 'text-4xl mb-2 shrink-0' : 'text-5xl mb-8 shrink-0'}`}>
             {data.title}
           </h2>
-          <p className={`font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed font-medium ${data.component ? 'text-xl mb-4 shrink-0' : 'text-3xl mb-12 shrink-0'}`}>
+          <p className={`whitespace-pre-line font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed font-medium ${data.component ? 'text-xl mb-4 shrink-0' : 'text-3xl mb-12 shrink-0'}`}>
             {data.body}
           </p>
           
@@ -48,10 +48,10 @@ export function Slide({ data, isPrint = false }: { data: SlideData; isPrint?: bo
       className={`flex flex-col h-full w-full ${data.component ? 'px-12 py-8' : 'p-16'} bg-white rounded-3xl shadow-[0_10px_40px_-10px_rgba(12,19,58,0.1)] border border-[var(--color-brand-navy)]/5`}
     >
       <div className="flex-1 flex flex-col min-h-0">
-        <h2 className={`font-montserrat font-bold text-[var(--color-brand-navy)] tracking-tight ${data.component ? 'text-4xl mb-2 shrink-0' : 'text-5xl mb-8 shrink-0'}`}>
+        <h2 className={`whitespace-pre-line font-montserrat font-bold text-[var(--color-brand-navy)] tracking-tight ${data.component ? 'text-4xl mb-2 shrink-0' : 'text-5xl mb-8 shrink-0'}`}>
           {data.title}
         </h2>
-        <p className={`font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed font-medium ${data.component ? 'text-xl mb-4 shrink-0' : 'text-3xl mb-12 shrink-0'}`}>
+        <p className={`whitespace-pre-line font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed font-medium ${data.component ? 'text-xl mb-4 shrink-0' : 'text-3xl mb-12 shrink-0'}`}>
           {data.body}
         </p>
         
