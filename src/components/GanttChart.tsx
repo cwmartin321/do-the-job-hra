@@ -16,7 +16,7 @@ export default function GanttChart() {
   const tasks: Task[] = [
     { id: '1', name: 'Project Kickoff & Alignment', phase: 'Initiation', startWeek: 1, duration: 1, color: 'bg-[var(--color-brand-navy)]', details: "Aligning on project scope, timeline, and key stakeholders to ensure smooth execution." },
     { id: '2', name: 'Goal Setting & Philosophy', phase: 'Assessment', startWeek: 1, duration: 2, color: 'bg-[var(--color-brand-blue)]', details: "Defining success metrics and establishing the philosophy for evaluating pay equity." },
-    { id: '3', name: 'HRIS Data Extraction', phase: 'Data', startWeek: 2, duration: 2, color: 'bg-[var(--color-brand-seafoam)]', details: "Connecting, extracting, formatting, and verifying demographic and compensation data from the HRIS." },
+    { id: '3', name: 'HRIS Integration', phase: 'Data', startWeek: 2, duration: 2, color: 'bg-[var(--color-brand-seafoam)]', details: "Connecting, extracting, formatting, and verifying demographic and compensation data from the HRIS." },
     { id: '4', name: 'Configuration & Job Classification', phase: 'Configuration', startWeek: 3, duration: 2, color: 'bg-[var(--color-brand-gold)]', details: "Setting up the platform architecture and mapping internal employee and job data." },
     { id: '5', name: 'Methodology Enablement', phase: 'Education', startWeek: 4, duration: 1, color: 'bg-[var(--color-brand-navy-light)]', details: "Educating the team on the underlying statistical methodologies used in the software." },
     { id: '6', name: 'Initial Regression Analysis', phase: 'Testing', startWeek: 4, duration: 3, color: 'bg-[var(--color-brand-blue)]', details: "Running preliminary regression models to identify potential pay disparities." },
