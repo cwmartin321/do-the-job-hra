@@ -29,10 +29,10 @@ export default function GanttChart() {
   const weeks = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden text-xs font-satoshi mt-0">
+    <div className="w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden text-sm font-satoshi mt-4">
       
       {/* Header: Weeks */}
-      <div className="grid grid-cols-12 bg-[#F9F9F9] border-b border-gray-200 py-1 text-[var(--color-brand-navy)] font-bold text-center text-[11px]">
+      <div className="grid grid-cols-12 bg-[#F9F9F9] border-b border-gray-200 py-2 text-[var(--color-brand-navy)] font-bold text-center text-sm">
         <div className="col-span-4 text-left px-6">Project Phase & Activities</div>
         <div className="col-span-8 grid grid-cols-8">
           {weeks.map((week) => (
@@ -47,10 +47,10 @@ export default function GanttChart() {
           <div key={task.id} className="grid grid-cols-12 items-center hover:bg-gray-50 transition-colors">
             
             {/* Task Name & Phase */}
-            <div className="col-span-4 px-6 py-1 flex justify-between items-center relative group z-20">
+            <div className="col-span-4 px-6 py-2 flex justify-between items-center relative group z-20">
               <div className="flex flex-col justify-center max-w-[90%]">
-                <span className="text-[8px] font-bold text-[var(--color-brand-navy-light)] uppercase tracking-wider mb-0">{task.phase}</span>
-                <span className="font-medium text-[var(--color-brand-navy)] text-[11px] leading-tight">{task.name}</span>
+                <span className="text-[10px] font-bold text-[var(--color-brand-navy-light)] uppercase tracking-wider mb-0.5">{task.phase}</span>
+                <span className="font-medium text-[var(--color-brand-navy)] text-sm leading-tight">{task.name}</span>
               </div>
               
               <div 
@@ -58,7 +58,7 @@ export default function GanttChart() {
                 onMouseEnter={() => setHoveredTaskId(task.id)}
                 onMouseLeave={() => setHoveredTaskId(null)}
               >
-                <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-gold)] animate-pulse shadow-[0_0_8px_rgba(255,195,98,0.6)]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-seafoam)] animate-pulse shadow-[0_0_8px_rgba(87,204,153,0.6)]" />
                 
                 <AnimatePresence>
                   {hoveredTaskId === task.id && (
@@ -80,7 +80,7 @@ export default function GanttChart() {
             </div>
 
             {/* Task Timeline Bar */}
-            <div className="col-span-8 grid grid-cols-8 px-2 py-1 h-full items-center relative">
+            <div className="col-span-8 grid grid-cols-8 px-2 py-2 h-full items-center relative">
               {/* Background grid lines for visual guidance */}
               <div className="absolute inset-0 grid grid-cols-8 divide-x divide-gray-100 pointer-events-none">
                 {weeks.map((w) => <div key={`bg-line-${w}`} />)}
@@ -88,7 +88,7 @@ export default function GanttChart() {
 
               {/* The actual colored Gantt bar */}
               <div
-                className={`${task.color} h-4 rounded-[3px] shadow-sm flex items-center px-3 text-white text-[9px] font-semibold relative z-10 transition-all duration-300 hover:opacity-90`}
+                className={`${task.color} h-6 rounded-md shadow-sm flex items-center px-3 text-white text-xs font-semibold relative z-10 transition-all duration-300 hover:opacity-90`}
                 style={{
                   gridColumnStart: task.startWeek,
                   gridColumnEnd: `span ${task.duration}`
