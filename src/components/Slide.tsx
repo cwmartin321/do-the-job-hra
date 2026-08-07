@@ -160,9 +160,11 @@ const ValueDriversGrid = ({ drivers }: { drivers: SlideData['valueDrivers'] }) =
     switch (type) {
       case '4x':
         return (
-          <div className="flex items-center justify-center gap-1.5 h-full">
-            <span className="text-gray-300 font-bold text-xl line-through relative top-1">1x</span>
-            <span className="text-[var(--color-brand-seafoam)] font-black text-5xl tracking-tighter">4x</span>
+          <div className="flex flex-col items-center justify-center h-full leading-none">
+            <div className="flex items-center gap-1.5 text-gray-400 mb-1">
+              <span className="font-bold text-sm line-through decoration-gray-300">1x / yr</span>
+            </div>
+            <span className="text-[var(--color-brand-seafoam)] font-black text-4xl tracking-tight">4x</span>
           </div>
         );
       case 'retention':
