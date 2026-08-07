@@ -83,7 +83,7 @@ export const slides: SlideData[] = [
     layout: 'icon-grid',
     iconGridItems: [
       { icon: "Crown", title: "VP of Total Rewards", text: "The primary champion and success stakeholder." },
-      { icon: "UserCog", title: "Implementation Manager", text: "(My role): I led SSO, integrations, and comprehensive platform training.", highlight: true },
+      { icon: "UserCog", title: "Implementation Manager", text: "I led SSO, integrations, and comprehensive platform training.", highlight: true },
       { icon: "Database", title: "HRIS/IT", text: "4 person team responsible for HRIS data integration and governance. I guided them to manage Workday and ATS data integration pipelines." },
       { icon: "Users", title: "End-Users", text: "I onboarded a team of ten comprised Comp, Legal, and HRBPs to adopt the new system." }
     ]
