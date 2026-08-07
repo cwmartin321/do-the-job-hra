@@ -74,7 +74,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
           setReactions(rData.reactions || { question: 0 });
         }
       } catch (err) {}
-    }, 3000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [showComments, slideId]);
 
