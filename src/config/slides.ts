@@ -2,7 +2,13 @@ export type SlideData = {
   id: string;
   title: string;
   body: string;
+  layout?: 'default' | 'icon-grid' | 'split' | 'process' | 'stats' | 'quote';
   bulletPoints?: string[];
+  iconGridItems?: { icon: string; title: string; text: string }[];
+  processSteps?: { title: string; description: string; icon?: string }[];
+  splitContent?: { image?: string; icon?: string; sideText?: string };
+  stats?: { value: string; label: string }[];
+  quote?: { text: string; author: string };
   component?: "GanttChart";
 };
 
@@ -10,7 +16,8 @@ export const slides: SlideData[] = [
   {
     id: "slide-0-cover",
     title: "Roadmap to Success:\nImplementing Pay Equity Software",
-    body: "A Fortune 100 Pharmaceutical case study exploring my execution of their transition to a self-regulated, enterprise pay equity model.\n\nPresented by: Chris Martin",
+    body: "A Fortune 100 Pharmaceutical case study exploring my execution of their transition to a self-regulated, enterprise pay equity model.\n\nPresented by: *Chris Martin*",
+    layout: 'default',
     bulletPoints: [
       "My approach to strategic needs assessment and solution alignment.",
       "How I managed the 8-week enterprise project plan and execution.",
@@ -20,30 +27,34 @@ export const slides: SlideData[] = [
   },
   {
     id: "slide-1-the-catalyst",
-    title: "Introduction: The Catalyst",
+    title: "Introduction: ~~The Catalyst~~",
     body: "The client prioritized fairness and equity, which drove my implementation of a nimble, real-time evaluation platform.",
-    bulletPoints: [
-      "I helped them shift away from point-in-time, reactive audits.",
-      "I laid the groundwork for their upcoming global job architecture realignments.",
-      "I empowered their internal teams to self-regulate pay fairness.",
-      "I enabled them to proactively respond to shifting legal landscapes."
+    layout: 'process',
+    processSteps: [
+      { title: "Reactive to Proactive", description: "Shifted away from point-in-time, reactive audits to continuous evaluation.", icon: "Activity" },
+      { title: "Global Alignment", description: "Laid the groundwork for upcoming global job architecture realignments.", icon: "Globe" },
+      { title: "Internal Empowerment", description: "Empowered internal teams to self-regulate pay fairness.", icon: "ShieldCheck" },
+      { title: "Legal Resilience", description: "Enabled proactive responses to shifting legal landscapes.", icon: "Scale" }
     ]
   },
   {
     id: "slide-2-business-goals",
-    title: "Introduction: Business Goals",
+    title: "Introduction: ~~Business Goals~~",
     body: "My core objective was global risk mitigation by eliminating the impact of ungoverned pay changes for the client.",
-    bulletPoints: [
-      "I gave them total control over model inputs and evaluation criteria.",
-      "I delivered higher confidence in their mathematical outputs.",
-      "I significantly reduced their analysis turnaround time.",
-      "I established a consistent, repeatable global governance framework for them."
+    layout: 'icon-grid',
+    iconGridItems: [
+      { icon: "SlidersHorizontal", title: "Total Control", text: "Gave them total control over model inputs and evaluation criteria." },
+      { icon: "CheckCircle", title: "High Confidence", text: "Delivered higher confidence in their mathematical outputs." },
+      { icon: "Zap", title: "Faster Turnaround", text: "Significantly reduced their analysis turnaround time." },
+      { icon: "Network", title: "Global Framework", text: "Established a consistent, repeatable global governance framework." }
     ]
   },
   {
     id: "slide-3-discovery",
-    title: "Needs Assessment: Discovery",
+    title: "Needs Assessment: ~~Discovery~~",
     body: "I led the initial discovery phase, focusing on the customer's historical comfort with pay equity analyses to define my project's success criteria.",
+    layout: 'split',
+    splitContent: { icon: "Search", sideText: "Discovery Phase & Requirements Gathering" },
     bulletPoints: [
       "I evaluated their past reliance on external consultants and lawyers.",
       "I defined project success by targeting optimized remediation budgets.",
@@ -53,47 +64,53 @@ export const slides: SlideData[] = [
   },
   {
     id: "slide-4-regulatory-complexity",
-    title: "Needs Assessment: Compliance",
+    title: "Needs Assessment: ~~Compliance~~",
     body: "I drove a deep configuration of the solution to meet the unique, multi-national regulatory demands of the pharmaceutical industry.",
-    bulletPoints: [
-      "I addressed their existing and evolving global pay regulations.",
-      "I educated stakeholders on the legal defensibility of our software.",
-      "I demonstrated the statistical rigor of our out-of-the-box methodologies.",
-      "I adapted the models to their unique, industry-specific workforce footprints."
+    layout: 'icon-grid',
+    iconGridItems: [
+      { icon: "Globe", title: "Global Regulations", text: "Addressed their existing and evolving global pay regulations." },
+      { icon: "Shield", title: "Legal Defensibility", text: "Educated stakeholders on the legal defensibility of our software." },
+      { icon: "BarChart3", title: "Statistical Rigor", text: "Demonstrated the statistical rigor of our out-of-the-box methodologies." },
+      { icon: "Briefcase", title: "Industry Models", text: "Adapted the models to their unique, industry-specific workforce footprints." }
     ]
   },
   {
     id: "slide-5-project-plan",
     title: "Project Plan",
     body: "",
+    layout: 'default',
     component: "GanttChart"
   },
   {
     id: "slide-6-team-roles",
-    title: "Governance & Team Roles",
+    title: "Governance & ~~Team Roles~~",
     body: "I established a transparent, weekly operating cadence driven by clear expectations and mutual accountability across all stakeholders.",
-    bulletPoints: [
-      "VP of Total Rewards: My primary champion and success stakeholder.",
-      "Implementation Manager (Me): I led SSO, integrations, and training.",
-      "HRIS/IT: I guided them to manage Workday and ATS data integration pipelines.",
-      "End-Users: I onboarded Comp, Legal, and HRBPs to adopt the new system."
+    layout: 'icon-grid',
+    iconGridItems: [
+      { icon: "Crown", title: "VP of Total Rewards", text: "My primary champion and success stakeholder." },
+      { icon: "UserCog", title: "Implementation Manager", text: "I led SSO, integrations, and comprehensive platform training." },
+      { icon: "Database", title: "HRIS/IT", text: "I guided them to manage Workday and ATS data integration pipelines." },
+      { icon: "Users", title: "End-Users", text: "I onboarded Comp, Legal, and HRBPs to adopt the new system." }
     ]
   },
   {
     id: "slide-7-risk-data",
-    title: "Risk Management: Data Integrity",
+    title: "Risk Management: ~~Data Integrity~~",
     body: "I proactively mitigated incomplete HRIS and payroll data risks to ensure we didn't derail my 8-week timeline.",
-    bulletPoints: [
-      "I provided clear expectations for their minimum data requirements.",
-      "I dedicated our weekly calls strictly to data review and gap analysis.",
-      "I ran continuous integration tests via their Workday ISU.",
-      "I ensured their secure authentication and ISU system management."
+    layout: 'process',
+    processSteps: [
+      { title: "Define Requirements", description: "Provided clear expectations for their minimum data requirements.", icon: "FileText" },
+      { title: "Gap Analysis", description: "Dedicated our weekly calls strictly to data review and gap analysis.", icon: "Search" },
+      { title: "Integration Testing", description: "Ran continuous integration tests via their Workday ISU.", icon: "RefreshCw" },
+      { title: "System Security", description: "Ensured their secure authentication and ISU system management.", icon: "Lock" }
     ]
   },
   {
     id: "slide-8-risk-scope",
-    title: "Risk Management: Scope Creep",
+    title: "Risk Management: ~~Scope Creep~~",
     body: "I successfully navigated timeline shifts caused by their evolving business priorities, such as active M&A activity.",
+    layout: 'split',
+    splitContent: { icon: "Compass", sideText: "Navigating Organizational Shifts" },
     bulletPoints: [
       "I established a core working team to maintain my project's momentum.",
       "I locked in foundational integration readiness requirements early.",
@@ -103,46 +120,50 @@ export const slides: SlideData[] = [
   },
   {
     id: "slide-9-training-methodology",
-    title: "Training: Methodology Enablement",
+    title: "Training: ~~Methodology~~",
     body: "I delivered an intense, hands-on learning model designed to transition the client's team away from external consultants.",
-    bulletPoints: [
-      "I utilized the customer's live data to help them validate statistical models.",
-      "I taught their teams the interpretation of results and equity issue resolution.",
-      "I built their trust in the platform's mathematical output.",
-      "I successfully transitioned users away from black-box consulting models."
+    layout: 'icon-grid',
+    iconGridItems: [
+      { icon: "Database", title: "Live Data Validation", text: "Utilized the customer's live data to help them validate statistical models." },
+      { icon: "LineChart", title: "Results Interpretation", text: "Taught their teams the interpretation of results and equity issue resolution." },
+      { icon: "ShieldCheck", title: "Building Trust", text: "Built their trust in the platform's mathematical output." },
+      { icon: "LogOut", title: "Consultant Transition", text: "Successfully transitioned users away from black-box consulting models." }
     ]
   },
   {
     id: "slide-10-training-adoption",
-    title: "Training: Global Adoption",
+    title: "Training: ~~Global Adoption~~",
     body: "I scaled my enablement strategy across multiple timezones through targeted resource development.",
-    bulletPoints: [
-      "I developed internal Subject Matter Experts (SMEs) to upskill their teams.",
-      "I supplied on-demand video tracking their specific customer journey.",
-      "I created tailored learning tracks for their Comp, Talent Acquisition, and HR teams.",
-      "I supported localized teams by hosting scheduled drop-in office hours."
+    layout: 'stats',
+    stats: [
+      { value: "SMEs", label: "Developed internal subject matter experts to upskill teams." },
+      { value: "On-Demand", label: "Supplied video tracking their specific customer journey." },
+      { value: "Tailored", label: "Created learning tracks for Comp, TA, and HR teams." },
+      { value: "24/7", label: "Supported localized teams with scheduled drop-in office hours." }
     ]
   },
   {
     id: "slide-11-immediate-outcomes",
-    title: "Conclusion: Immediate Outcomes",
+    title: "Conclusion: ~~Immediate Outcomes~~",
     body: "I successfully delivered a complete global pay equity analysis and remediation strategy within my target 8-week window.",
-    bulletPoints: [
-      "I finalized direct Workday integration for their automated updates.",
-      "I deployed comprehensive training plans across the Americas, EMEA, and APAC.",
-      "I established their strategic 6-month and 12-month compliance milestones.",
-      "I helped them complete their initial remediation strategy within 8 weeks."
+    layout: 'process',
+    processSteps: [
+      { title: "Workday Integration", description: "Finalized direct Workday integration for their automated updates.", icon: "Link" },
+      { title: "Global Training", description: "Deployed comprehensive training plans across the Americas, EMEA, and APAC.", icon: "Globe" },
+      { title: "Compliance Milestones", description: "Established their strategic 6-month and 12-month compliance milestones.", icon: "Flag" },
+      { title: "Remediation Strategy", description: "Helped them complete their initial remediation strategy within 8 weeks.", icon: "CheckCircle" }
     ]
   },
   {
     id: "slide-12-long-term-value",
-    title: "Conclusion: Long-Term Value",
+    title: "Conclusion: ~~Long-Term Value~~",
     body: "My implementation immediately proved its ROI by enabling the customer to navigate complex structural changes efficiently.",
-    bulletPoints: [
-      "They completed multiple regulatory reports across global jurisdictions using my setup.",
-      "They reviewed two major acquisition populations for job framework equity.",
-      "I helped them achieve sustained self-regulation for ongoing fairness.",
-      "My work eliminated the financial drag of their annual consultant fees."
+    layout: 'icon-grid',
+    iconGridItems: [
+      { icon: "FileCheck", title: "Regulatory Reporting", text: "They completed multiple regulatory reports across global jurisdictions." },
+      { icon: "Building", title: "M&A Readiness", text: "They reviewed two major acquisition populations for job framework equity." },
+      { icon: "Scale", title: "Sustained Fairness", text: "I helped them achieve sustained self-regulation for ongoing fairness." },
+      { icon: "TrendingDown", title: "Cost Reduction", text: "My work eliminated the financial drag of their annual consultant fees." }
     ]
   }
 ];
