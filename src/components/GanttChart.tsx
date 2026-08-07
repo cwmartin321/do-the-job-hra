@@ -29,10 +29,10 @@ export default function GanttChart() {
   const weeks = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden text-sm font-satoshi mt-2">
+    <div className="w-full h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden text-sm font-satoshi mt-2">
       
       {/* Header: Weeks */}
-      <div className="grid grid-cols-12 bg-[#F9F9F9] border-b border-gray-200 py-1.5 text-[var(--color-brand-navy)] font-bold text-center text-xs">
+      <div className="grid grid-cols-12 bg-[#F9F9F9] border-b border-gray-200 py-1.5 text-[var(--color-brand-navy)] font-bold text-center text-xs shrink-0">
         <div className="col-span-4 text-left px-6">Project Phase & Activities</div>
         <div className="col-span-8 grid grid-cols-8">
           {weeks.map((week) => (
@@ -42,12 +42,12 @@ export default function GanttChart() {
       </div>
 
       {/* Body: Tasks */}
-      <div className="divide-y divide-gray-100">
+      <div className="divide-y divide-gray-100 flex-1 flex flex-col min-h-0">
         {tasks.map((task) => (
-          <div key={task.id} className="grid grid-cols-12 items-center hover:bg-gray-50 transition-colors">
+          <div key={task.id} className="grid grid-cols-12 items-center hover:bg-gray-50 transition-colors flex-1 min-h-0">
             
             {/* Task Name & Phase */}
-            <div className="col-span-4 px-6 py-1.5 flex justify-between items-center relative group z-20">
+            <div className="col-span-4 px-6 h-full flex justify-between items-center relative group z-20">
               <div className="flex flex-col justify-center max-w-[90%]">
                 <span className="text-[9px] font-bold text-[var(--color-brand-navy-light)] uppercase tracking-wider mb-0.5">{task.phase}</span>
                 <span className="font-medium text-[var(--color-brand-navy)] text-xs leading-tight">{task.name}</span>
@@ -80,7 +80,7 @@ export default function GanttChart() {
             </div>
 
             {/* Task Timeline Bar */}
-            <div className="col-span-8 grid grid-cols-8 px-2 py-1.5 h-full items-center relative">
+            <div className="col-span-8 grid grid-cols-8 px-2 h-full items-center relative">
               {/* Background grid lines for visual guidance */}
               <div className="absolute inset-0 grid grid-cols-8 divide-x divide-gray-100 pointer-events-none">
                 {weeks.map((w) => <div key={`bg-line-${w}`} />)}
