@@ -77,13 +77,6 @@ export const slides: SlideData[] = [
     ]
   },
   {
-    id: "slide-5-project-plan",
-    title: "Project Plan",
-    body: "",
-    layout: 'default',
-    component: "GanttChart"
-  },
-  {
     id: "slide-6-team-roles",
     title: "Governance & ~~Team Roles~~",
     body: "I established a transparent, weekly operating cadence driven by clear expectations and mutual accountability across all stakeholders.",
@@ -94,6 +87,13 @@ export const slides: SlideData[] = [
       { icon: "Database", title: "HRIS/IT", text: "4 person team responsible for HRIS data integration and governance. I guided them to manage Workday and ATS data integration pipelines." },
       { icon: "Users", title: "End-Users", text: "I onboarded a team of ten comprised Comp, Legal, and HRBPs to adopt the new system." }
     ]
+  },
+  {
+    id: "slide-5-project-plan",
+    title: "Project Plan",
+    body: "",
+    layout: 'default',
+    component: "GanttChart"
   },
   {
     id: "slide-7-risk-data",
