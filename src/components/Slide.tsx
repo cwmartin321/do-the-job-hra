@@ -44,8 +44,8 @@ const IconGrid = ({ items }: { items: SlideData['iconGridItems'] }) => (
         transition={{ delay: 0.2 + i * 0.1 }}
         className="flex items-start gap-5"
       >
-        <div className="w-16 h-16 rounded-full bg-[var(--color-brand-seafoam-light)]/30 flex items-center justify-center shrink-0 shadow-sm border border-[var(--color-brand-seafoam)]/20">
-          <Icon name={item.icon} className="w-8 h-8 text-[var(--color-brand-navy)]" />
+        <div className={`w-16 h-16 rounded-full flex items-center justify-center shrink-0 shadow-sm border ${item.highlight ? 'bg-[var(--color-brand-gold)]/10 border-[var(--color-brand-gold)]/30' : 'bg-[var(--color-brand-seafoam-light)]/30 border-[var(--color-brand-seafoam)]/20'}`}>
+          <Icon name={item.icon} className={`w-8 h-8 ${item.highlight ? 'text-[var(--color-brand-gold)]' : 'text-[var(--color-brand-navy)]'}`} />
         </div>
         <div>
           <h4 className="text-xl font-montserrat font-bold text-[var(--color-brand-navy)] mb-2">{item.title}</h4>

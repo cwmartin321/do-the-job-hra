@@ -4,7 +4,7 @@ export type SlideData = {
   body: string;
   layout?: 'default' | 'icon-grid' | 'split' | 'process' | 'stats' | 'quote' | 'value-drivers' | 'pillars';
   bulletPoints?: string[];
-  iconGridItems?: { icon: string; title: string; text: string }[];
+  iconGridItems?: { icon: string; title: string; text: string; highlight?: boolean }[];
   processSteps?: { title: string; description: string; icon?: string }[];
   splitContent?: { image?: string; icon?: string; sideText?: string };
   stats?: { value: string; label: string }[];
@@ -90,7 +90,7 @@ export const slides: SlideData[] = [
     layout: 'icon-grid',
     iconGridItems: [
       { icon: "Crown", title: "VP of Total Rewards", text: "The primary champion and success stakeholder." },
-      { icon: "UserCog", title: "Implementation Manager", text: "(My role): I led SSO, integrations, and comprehensive platform training." },
+      { icon: "UserCog", title: "Implementation Manager", text: "(My role): I led SSO, integrations, and comprehensive platform training.", highlight: true },
       { icon: "Database", title: "HRIS/IT", text: "4 person team responsible for HRIS data integration and governance. I guided them to manage Workday and ATS data integration pipelines." },
       { icon: "Users", title: "End-Users", text: "I onboarded a team of ten comprised Comp, Legal, and HRBPs to adopt the new system." }
     ]
@@ -146,7 +146,7 @@ export const slides: SlideData[] = [
   },
   {
     id: "slide-11-immediate-outcomes",
-    title: "Conclusion: Immediate~~ Outcomes~~",
+    title: "Conclusion: ~~Immediate Outcomes~~",
     body: "A complete global pay equity analysis and remediation strategy was delivered within the 8-week target window.",
     layout: 'pillars',
     pillars: [
@@ -171,12 +171,12 @@ export const slides: SlideData[] = [
   {
     id: "slide-13-partnership-growth",
     title: "Conclusion: ~~Partnership Growth~~",
-    body: "My successful implementation didn't just solve the client's challenges—it secured significant long-term value and expansion opportunities for our company.",
+    body: "At my current company, this successful implementation secured significant long-term investment and revenue expansion opportunities.",
     layout: 'icon-grid',
     iconGridItems: [
-      { icon: "Layers", title: "Full Suite Adoption", text: "The success of the core platform led to the customer adopting 100% of our software suite." },
-      { icon: "Smile", title: "High Satisfaction", text: "Achieved exceptionally high customer satisfaction and glowing positive sentiment feedback." },
-      { icon: "Rocket", title: "Renewal & Expansion", text: "The account is on track for renewal and actively exploring early adopter opportunities." },
+      { icon: "Layers", title: "Full Suite Adoption", text: "The success of the core platform led to the customer adopting 100% of our product suite." },
+      { icon: "Smile", title: "Customer Loyalty and Trust", text: "Achieved exceptionally high customer satisfaction and positive sentiment feedback." },
+      { icon: "Rocket", title: "Renewal & Expansion", text: "The account is on track for renewal and actively exploring early adopter opportunities and new feature testing." },
       { icon: "TrendingUp", title: "Account Evolution", text: "This strong foundation makes future growth, seamless support, and customer evolution highly likely." }
     ]
   },
@@ -195,11 +195,11 @@ export const slides: SlideData[] = [
   {
     id: "slide-15-appendix",
     title: "Appendix: ~~The Presentation as a Product~~",
-    body: "We replaced the static deck with a live, interactive application to demonstrate how modern tools can transform standard client check-ins into highly collaborative experiences.",
+    body: "I replaced a static deck with a live, interactive application to demonstrate how modern tools can transform standard client interactions into highly collaborative experiences.",
     layout: 'icon-grid',
     iconGridItems: [
       { icon: "Laptop", title: "Premium Experience", text: "A dynamic, fully-branded interface elevates the brand and commands client attention during implementation." },
-      { icon: "Hand", title: "Frictionless Feedback", text: "The persistent 'hand raise' allows clients to signal confusion instantly without interrupting the flow." },
+      { icon: "Hand", title: "Frictionless Feedback", text: "The persistent 'hand raise' allows clients to signal instantly without interrupting the flow." },
       { icon: "MessageSquare", title: "Live Collaboration", text: "Real-time commenting captures all notes, questions, and alignment directly within the presentation." },
       { icon: "Download", title: "Actionable Takeaways", text: "Export the session into a persistent artifact, ensuring no client concern falls through the cracks." }
     ]

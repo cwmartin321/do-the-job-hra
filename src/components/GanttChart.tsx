@@ -49,8 +49,8 @@ export default function GanttChart() {
             {/* Task Name & Phase */}
             <div className="col-span-4 px-6 h-full flex justify-between items-center relative group z-20">
               <div className="flex flex-col justify-center max-w-[90%]">
-                <span className="text-[9px] font-bold text-[var(--color-brand-navy-light)] uppercase tracking-wider mb-0.5">{task.phase}</span>
-                <span className="font-medium text-[var(--color-brand-navy)] text-xs leading-tight">{task.name}</span>
+                <span className="text-[11px] font-bold text-[var(--color-brand-navy-light)] uppercase tracking-wider mb-0.5">{task.phase}</span>
+                <span className="font-medium text-[var(--color-brand-navy)] text-sm leading-tight">{task.name}</span>
               </div>
 
               <div

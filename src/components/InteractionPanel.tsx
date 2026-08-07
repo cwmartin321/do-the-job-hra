@@ -24,7 +24,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
 
   useEffect(() => {
     // Restore local state
-    const savedState = localStorage.getItem(`question-active-${slideId}`);
+    const savedState = localStorage.getItem(`question-active-global`);
     if (savedState === 'true') {
       setMyQuestionActive(true);
     } else {
@@ -35,7 +35,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
     const fetchData = async () => {
       try {
         const [reactionsRes, commentsRes] = await Promise.all([
-          fetch(`/api/reactions?slideId=${slideId}&t=${Date.now()}`, { cache: "no-store" }),
+          fetch(`/api/reactions?slideId=global&t=${Date.now()}`, { cache: "no-store" }),
           fetch(`/api/comments?slideId=${slideId}&t=${Date.now()}`, { cache: "no-store" })
         ]);
         
@@ -63,7 +63,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
       try {
         const [res, rRes] = await Promise.all([
           fetch(`/api/comments?slideId=${slideId}&t=${Date.now()}`, { cache: "no-store" }),
-          fetch(`/api/reactions?slideId=${slideId}&t=${Date.now()}`, { cache: "no-store" })
+          fetch(`/api/reactions?slideId=global&t=${Date.now()}`, { cache: "no-store" })
         ]);
         
         if (res.ok) {
@@ -82,7 +82,7 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
   const handleToggleQuestion = async () => {
     const newState = !myQuestionActive;
     setMyQuestionActive(newState);
-    localStorage.setItem(`question-active-${slideId}`, String(newState));
+    localStorage.setItem(`question-active-global`, String(newState));
     
     // Optimistic update
     setReactions(prev => ({ 
@@ -94,12 +94,12 @@ export function InteractionPanel({ slideId }: { slideId: string }) {
       await fetch('/api/reactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slideId, type: 'question', increment: newState ? 1 : -1 })
+        body: JSON.stringify({ slideId: 'global', type: 'question', increment: newState ? 1 : -1 })
       });
     } catch (e) {
       // Revert on error
       setMyQuestionActive(!newState);
-      localStorage.setItem(`question-active-${slideId}`, String(!newState));
+      localStorage.setItem(`question-active-global`, String(!newState));
       setReactions(prev => ({ 
         ...prev, 
         question: Math.max(0, prev.question + (!newState ? 1 : -1)) 
