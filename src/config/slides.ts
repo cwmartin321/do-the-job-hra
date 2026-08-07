@@ -22,9 +22,9 @@ export const slides: SlideData[] = [
     layout: 'default',
     bulletPoints: [
       "My approach to strategic needs assessment and solution alignment.",
-      "How I managed the 8-week enterprise project plan and execution.",
-      "The proactive risk management and governance framework I implemented.",
-      "My strategy for global methodology training to deliver immediate ROI."
+      "I managed an 8-week enterprise project plan and it's execution.",
+      "The proactive risk management and governance framework.",
+      "Built a strategy for global methodology and software training to deliver immediate ROI."
     ]
   },
   {
@@ -82,8 +82,8 @@ export const slides: SlideData[] = [
     body: "I established a transparent, weekly operating cadence driven by clear expectations and mutual accountability across all stakeholders.",
     layout: 'icon-grid',
     iconGridItems: [
-      { icon: "Crown", title: "VP of Total Rewards", text: "The primary champion and success stakeholder." },
-      { icon: "UserCog", title: "Implementation Manager", text: "I led SSO, integrations, and comprehensive platform training.", highlight: true },
+      { icon: "Crown", title: "VP of Total Rewards", text: "The primary champion and success stakeholder. Accountable for realizing and evaluating the success of the implementation." },
+      { icon: "UserCog", title: "Implementation Manager", text: "I led SSO, integrations, and comprehensive platform configuration and training.", highlight: true },
       { icon: "Database", title: "HRIS/IT", text: "4 person team responsible for HRIS data integration and governance. I guided them to manage Workday and ATS data integration pipelines." },
       { icon: "Users", title: "End-Users", text: "I onboarded a team of ten comprised Comp, Legal, and HRBPs to adopt the new system." }
     ]
