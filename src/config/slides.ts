@@ -30,7 +30,7 @@ export const slides: SlideData[] = [
   {
     id: "slide-1-the-catalyst",
     title: "Introduction: ~~The Catalyst~~",
-    body: "The client prioritized fairness and equity, which drove my implementation of a nimble, real-time evaluation platform.",
+    body: "The client needed a high efficiency solution to identify and better solve pay equity issues, avoiding the low touch and high burden consultancy model.",
     layout: 'process',
     processSteps: [
       { title: "Reactive to Proactive", description: "Shifted away from point-in-time, reactive audits to continuous evaluation.", icon: "Activity" },
