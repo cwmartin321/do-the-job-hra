@@ -69,7 +69,7 @@ const ProcessList = ({ steps }: { steps: SlideData['processSteps'] }) => (
         {i !== steps.length - 1 && (
           <div className="absolute left-5 top-12 bottom-[-1rem] w-0.5 bg-gray-200 z-0" />
         )}
-        <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center shrink-0 z-10 shadow-md mt-1.5">
+        <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center shrink-0 z-10 shadow-md mt-2.5">
           <Icon name={step.icon} className="w-5 h-5 text-white" />
         </div>
         <div className="bg-[#F9F9F9] border border-gray-100 rounded-2xl p-4 flex-1 shadow-sm">
@@ -131,6 +131,27 @@ const SplitLayout = ({ content, bulletPoints }: { content: SlideData['splitConte
       <Icon name={content?.icon} className="w-24 h-24 text-[var(--color-brand-seafoam)] mb-6 relative z-10" />
       <h3 className="text-3xl font-montserrat font-bold text-white leading-tight relative z-10">{content?.sideText}</h3>
     </motion.div>
+  </div>
+);
+
+const PillarsLayout = ({ items }: { items: SlideData['pillars'] }) => (
+  <div className="grid grid-cols-4 gap-6 flex-1 min-h-0 items-stretch justify-center pt-2">
+    {items?.map((item, i) => (
+      <motion.div 
+        key={i}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 + i * 0.1 }}
+        className="bg-white border-t-8 border-t-[var(--color-brand-seafoam)] border-x border-b border-gray-100 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm relative overflow-hidden h-full"
+      >
+        <div className="w-16 h-16 rounded-full bg-[var(--color-brand-seafoam-light)]/20 flex items-center justify-center shrink-0 mb-5 mt-2">
+          <Icon name={item.icon} className="w-8 h-8 text-[var(--color-brand-navy)]" />
+        </div>
+        <h4 className="text-[17px] font-montserrat font-bold text-[var(--color-brand-navy)] mb-4">{item.title}</h4>
+        <div className="w-12 h-0.5 bg-gray-100 mb-4 shrink-0" />
+        <p className="text-[13px] font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed">{item.description}</p>
+      </motion.div>
+    ))}
   </div>
 );
 
@@ -237,6 +258,7 @@ export function Slide({ data, isPrint = false }: { data: SlideData; isPrint?: bo
       {data.layout === 'stats' && <StatsGrid stats={data.stats} />}
       {data.layout === 'split' && <SplitLayout content={data.splitContent} bulletPoints={data.bulletPoints} />}
       {data.layout === 'value-drivers' && <ValueDriversGrid drivers={data.valueDrivers} />}
+      {data.layout === 'pillars' && <PillarsLayout items={data.pillars} />}
       {(!data.layout || data.layout === 'default') && !isGantt && <DefaultBullets bulletPoints={data.bulletPoints} />}
 
       {isGantt && (

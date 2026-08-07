@@ -2,13 +2,14 @@ export type SlideData = {
   id: string;
   title: string;
   body: string;
-  layout?: 'default' | 'icon-grid' | 'split' | 'process' | 'stats' | 'quote' | 'value-drivers';
+  layout?: 'default' | 'icon-grid' | 'split' | 'process' | 'stats' | 'quote' | 'value-drivers' | 'pillars';
   bulletPoints?: string[];
   iconGridItems?: { icon: string; title: string; text: string }[];
   processSteps?: { title: string; description: string; icon?: string }[];
   splitContent?: { image?: string; icon?: string; sideText?: string };
   stats?: { value: string; label: string }[];
   valueDrivers?: { title: string; description: string; visual: '4x' | 'retention' | 'regulatory' | 'satisfaction' }[];
+  pillars?: { icon: string; title: string; description: string }[];
   quote?: { text: string; author: string };
   component?: "GanttChart";
 };
@@ -147,8 +148,8 @@ export const slides: SlideData[] = [
     id: "slide-11-immediate-outcomes",
     title: "Conclusion: ~~Immediate Outcomes~~",
     body: "I successfully delivered a complete global pay equity analysis and remediation strategy within my target 8-week window.",
-    layout: 'process',
-    processSteps: [
+    layout: 'pillars',
+    pillars: [
       { title: "Workday Integration", description: "Finalized direct Workday integration for their automated updates.", icon: "Link" },
       { title: "Global Training", description: "Deployed comprehensive training plans across the Americas, EMEA, and APAC.", icon: "Globe" },
       { title: "Compliance Milestones", description: "Established their strategic 6-month and 12-month compliance milestones.", icon: "Flag" },
