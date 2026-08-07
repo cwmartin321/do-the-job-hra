@@ -11,7 +11,7 @@ const parseText = (text: string) => {
   return parts.map((part, i) => {
     if (part.startsWith('~~') && part.endsWith('~~')) {
       return (
-        <span key={i} className="font-caveat text-[var(--color-brand-seafoam)] text-[1.4em] leading-none px-1 inline-block -rotate-2 transform">
+        <span key={i} className="text-[var(--color-brand-seafoam)] inline-block">
           {part.slice(2, -2)}
         </span>
       );
@@ -57,23 +57,23 @@ const IconGrid = ({ items }: { items: SlideData['iconGridItems'] }) => (
 );
 
 const ProcessList = ({ steps }: { steps: SlideData['processSteps'] }) => (
-  <div className="flex flex-col gap-6 flex-1 min-h-0 justify-center px-8">
+  <div className="flex flex-col gap-4 flex-1 min-h-0 justify-center px-8">
     {steps?.map((step, i) => (
       <motion.div 
         key={i}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 + i * 0.1 }}
-        className="flex items-start gap-6 relative"
+        className="flex items-start gap-5 relative"
       >
         {i !== steps.length - 1 && (
-          <div className="absolute left-6 top-14 bottom-[-1.5rem] w-0.5 bg-gray-200 z-0" />
+          <div className="absolute left-5 top-12 bottom-[-1rem] w-0.5 bg-gray-200 z-0" />
         )}
-        <div className="w-12 h-12 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center shrink-0 z-10 shadow-md">
-          <Icon name={step.icon} className="w-6 h-6 text-white" />
+        <div className="w-10 h-10 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center shrink-0 z-10 shadow-md">
+          <Icon name={step.icon} className="w-5 h-5 text-white" />
         </div>
-        <div className="bg-[#F9F9F9] border border-gray-100 rounded-2xl p-5 flex-1 shadow-sm">
-          <h4 className="text-lg font-montserrat font-bold text-[var(--color-brand-navy)] mb-1">{step.title}</h4>
+        <div className="bg-[#F9F9F9] border border-gray-100 rounded-2xl p-4 flex-1 shadow-sm">
+          <h4 className="text-base font-montserrat font-bold text-[var(--color-brand-navy)] mb-1">{step.title}</h4>
           <p className="font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed text-sm">{step.description}</p>
         </div>
       </motion.div>
