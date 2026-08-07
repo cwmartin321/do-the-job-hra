@@ -92,8 +92,8 @@ const StatsGrid = ({ stats }: { stats: SlideData['stats'] }) => (
         className="bg-white border border-gray-100 rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-2 bg-[var(--color-brand-seafoam)]" />
-        <div className="text-5xl font-montserrat font-black text-[var(--color-brand-gold)] mb-4">{stat.value}</div>
-        <p className="text-lg font-satoshi text-[var(--color-brand-navy)] font-medium leading-relaxed">{stat.label}</p>
+        <div className="text-4xl font-montserrat font-black text-[var(--color-brand-navy)] mb-4">{parseText(stat.value)}</div>
+        <p className="text-base font-satoshi text-[var(--color-brand-navy-light)] font-medium leading-relaxed">{parseText(stat.label)}</p>
       </motion.div>
     ))}
   </div>

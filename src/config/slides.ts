@@ -139,7 +139,7 @@ export const slides: SlideData[] = [
       { value: "SMEs", label: "Developed internal subject matter experts to upskill teams." },
       { value: "On-Demand", label: "Supplied video tracking their specific customer journey." },
       { value: "Tailored", label: "Created learning tracks for Comp, TA, and HR teams." },
-      { value: "24/7", label: "Supported localized teams with scheduled drop-in office hours." }
+      { value: "Flexible", label: "Supported localized teams with scheduled drop-in office hours." }
     ]
   },
   {
