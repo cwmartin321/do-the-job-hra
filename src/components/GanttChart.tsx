@@ -18,7 +18,7 @@ export default function GanttChart() {
     { id: '4', name: 'Configuration & Job Classification', phase: 'Configuration', startWeek: 3, duration: 2, color: 'bg-[var(--color-brand-gold)]' },
     { id: '5', name: 'Methodology Enablement', phase: 'Education', startWeek: 4, duration: 1, color: 'bg-[var(--color-brand-navy-light)]' },
     { id: '6', name: 'Initial Regression Analysis', phase: 'Testing', startWeek: 4, duration: 3, color: 'bg-[var(--color-brand-blue)]' },
-    { id: '7', name: 'Model Refinement, User Training & Process Development', phase: 'Deployment', startWeek: 7, duration: 2, color: 'bg-[var(--color-brand-seafoam)]' },
+    { id: '7', name: 'Model Refinement, User Training & Process Development', phase: 'Deployment', startWeek: 6, duration: 2, color: 'bg-[var(--color-brand-seafoam)]' },
     { id: '8', name: 'Stabilization & Monitoring', phase: 'Post-Launch', startWeek: 8, duration: 1, color: 'bg-[var(--color-brand-gold)]' },
   ];
 
