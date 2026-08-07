@@ -169,7 +169,19 @@ export const slides: SlideData[] = [
     ]
   },
   {
-    id: "slide-13-value-drivers",
+    id: "slide-13-partnership-growth",
+    title: "Conclusion: ~~Partnership Growth~~",
+    body: "My successful implementation didn't just solve the client's challenges—it secured significant long-term value and expansion opportunities for our company.",
+    layout: 'icon-grid',
+    iconGridItems: [
+      { icon: "Layers", title: "Full Suite Adoption", text: "The success of the core platform led to the customer adopting 100% of our software suite." },
+      { icon: "Smile", title: "High Satisfaction", text: "Achieved exceptionally high customer satisfaction and glowing positive sentiment feedback." },
+      { icon: "Rocket", title: "Renewal & Expansion", text: "The account is on track for renewal and actively exploring early adopter opportunities." },
+      { icon: "TrendingUp", title: "Account Evolution", text: "This strong foundation makes future growth, seamless support, and customer evolution highly likely." }
+    ]
+  },
+  {
+    id: "slide-14-value-drivers",
     title: "Conclusion: ~~Value Drivers~~",
     body: "The platform's true ROI is rooted in its ability to transform pay equity from a reactive legal burden into a proactive strategic advantage.",
     layout: 'value-drivers',
@@ -181,7 +193,7 @@ export const slides: SlideData[] = [
     ]
   },
   {
-    id: "slide-14-appendix",
+    id: "slide-15-appendix",
     title: "Appendix: ~~The Presentation as a Product~~",
     body: "We replaced the static deck with a live, interactive application to demonstrate how modern tools can transform standard client check-ins into highly collaborative experiences.",
     layout: 'icon-grid',
