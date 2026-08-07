@@ -2,12 +2,13 @@ export type SlideData = {
   id: string;
   title: string;
   body: string;
-  layout?: 'default' | 'icon-grid' | 'split' | 'process' | 'stats' | 'quote';
+  layout?: 'default' | 'icon-grid' | 'split' | 'process' | 'stats' | 'quote' | 'value-drivers';
   bulletPoints?: string[];
   iconGridItems?: { icon: string; title: string; text: string }[];
   processSteps?: { title: string; description: string; icon?: string }[];
   splitContent?: { image?: string; icon?: string; sideText?: string };
   stats?: { value: string; label: string }[];
+  valueDrivers?: { title: string; description: string; visual: '4x' | 'retention' | 'regulatory' | 'satisfaction' }[];
   quote?: { text: string; author: string };
   component?: "GanttChart";
 };
@@ -164,6 +165,18 @@ export const slides: SlideData[] = [
       { icon: "Building", title: "M&A Readiness", text: "They reviewed two major acquisition populations for job framework equity." },
       { icon: "Scale", title: "Sustained Fairness", text: "I helped them achieve sustained self-regulation for ongoing fairness." },
       { icon: "TrendingDown", title: "Cost Reduction", text: "My work eliminated the financial drag of their annual consultant fees." }
+    ]
+  },
+  {
+    id: "slide-13-value-drivers",
+    title: "Conclusion: ~~Value Drivers~~",
+    body: "The platform's true ROI is rooted in its ability to transform pay equity from a reactive legal burden into a proactive strategic advantage.",
+    layout: 'value-drivers',
+    valueDrivers: [
+      { title: "Review Frequency", description: "Increase fairness review frequency by 4x, rather than maintaining a yearly cadence.", visual: "4x" },
+      { title: "Talent Retention", description: "Work toward higher retention by prioritizing fairness in total comp and pay packages.", visual: "retention" },
+      { title: "Risk Mitigation", description: "Avoid costly regulatory penalties and burdens through continuous monitoring.", visual: "regulatory" },
+      { title: "Employee Trust", description: "Improve employee satisfaction and trust by increasing organizational transparency.", visual: "satisfaction" }
     ]
   }
 ];

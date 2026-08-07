@@ -134,6 +134,70 @@ const SplitLayout = ({ content, bulletPoints }: { content: SlideData['splitConte
   </div>
 );
 
+const ValueDriversGrid = ({ drivers }: { drivers: SlideData['valueDrivers'] }) => {
+  const getVisual = (type: string) => {
+    switch (type) {
+      case '4x':
+        return (
+          <div className="flex items-center justify-center gap-1.5 h-full">
+            <span className="text-gray-300 font-bold text-xl line-through relative top-1">1x</span>
+            <span className="text-[var(--color-brand-seafoam)] font-black text-5xl tracking-tighter">4x</span>
+          </div>
+        );
+      case 'retention':
+        return (
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-brand-blue)] w-full h-full p-2">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+            <polyline points="16 7 22 7 22 13"></polyline>
+          </svg>
+        );
+      case 'regulatory':
+        return (
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-brand-gold)] w-full h-full p-2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M12 8v8"></path>
+            <path d="M8.5 10h7"></path>
+            <path d="M8.5 14h7"></path>
+          </svg>
+        );
+      case 'satisfaction':
+        return (
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full p-1">
+            <path d="M22 12A10 10 0 1 1 12 2a10 10 0 0 1 10 10z" className="stroke-gray-100"></path>
+            <path d="M22 12A10 10 0 0 1 12 22 10 10 0 0 1 2 12" className="stroke-[var(--color-brand-seafoam)]"></path>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" className="stroke-[var(--color-brand-navy)]"></path>
+            <line x1="9" y1="9" x2="9.01" y2="9" className="stroke-[var(--color-brand-navy)]"></line>
+            <line x1="15" y1="9" x2="15.01" y2="9" className="stroke-[var(--color-brand-navy)]"></line>
+          </svg>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="grid grid-cols-2 gap-6 flex-1 min-h-0 items-center justify-center pt-2">
+      {drivers?.map((driver, i) => (
+        <motion.div 
+          key={i}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 + i * 0.1 }}
+          className="bg-white border border-gray-100 rounded-2xl p-5 flex items-center gap-5 shadow-sm h-full"
+        >
+          <div className="w-20 h-20 rounded-xl bg-gray-50 flex items-center justify-center shrink-0 shadow-inner border border-gray-100">
+            {getVisual(driver.visual)}
+          </div>
+          <div className="flex-1">
+            <h4 className="text-lg font-montserrat font-bold text-[var(--color-brand-navy)] mb-1.5">{driver.title}</h4>
+            <p className="text-[13px] font-satoshi text-[var(--color-brand-navy-light)] leading-relaxed">{driver.description}</p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
 const DefaultBullets = ({ bulletPoints }: { bulletPoints: SlideData['bulletPoints'] }) => (
   <div className="flex-1 flex flex-col justify-center">
     {bulletPoints && (
@@ -172,6 +236,7 @@ export function Slide({ data, isPrint = false }: { data: SlideData; isPrint?: bo
       {data.layout === 'process' && <ProcessList steps={data.processSteps} />}
       {data.layout === 'stats' && <StatsGrid stats={data.stats} />}
       {data.layout === 'split' && <SplitLayout content={data.splitContent} bulletPoints={data.bulletPoints} />}
+      {data.layout === 'value-drivers' && <ValueDriversGrid drivers={data.valueDrivers} />}
       {(!data.layout || data.layout === 'default') && !isGantt && <DefaultBullets bulletPoints={data.bulletPoints} />}
 
       {isGantt && (
