@@ -28,30 +28,92 @@ export default function GanttChart() {
 
   const [hoveredTaskId, setHoveredTaskId] = useState<string | null>(null);
 
-  const weeks = [1, 2, 3, 4, 5, 6, 7, 8];
+  const handleDownloadExcel = async () => {
+    try {
+      const exceljsModule = await import('exceljs');
+      const ExcelJS = exceljsModule.default || exceljsModule;
+      
+      const workbook = new ExcelJS.Workbook();
+      workbook.creator = 'HR Acuity';
+      const worksheet = workbook.addWorksheet('Project Plan');
 
-  const handleDownloadCSV = () => {
-    const headers = ["Phase", "Activity Name", "Start Week", "Duration (Weeks)", "Owner", "Details"];
-    const csvContent = [
-      headers.join(","),
-      ...tasks.map(t => [
-        `"${t.phase}"`,
-        `"${t.name}"`,
-        t.startWeek,
-        t.duration,
-        `"${t.owner || ''}"`,
-        `"${t.details}"`
-      ].join(","))
-    ].join("\n");
+      // Set up columns
+      worksheet.columns = [
+        { header: 'Phase', key: 'phase', width: 18 },
+        { header: 'Activity', key: 'activity', width: 45 },
+        { header: 'Owner', key: 'owner', width: 30 },
+        ...weeks.map(w => ({ header: `Week ${w}`, key: `week${w}`, width: 12 }))
+      ];
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'project_plan.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // Style Header
+      const headerRow = worksheet.getRow(1);
+      headerRow.font = { bold: true, color: { argb: 'FFFFFFFF' }, size: 12 };
+      headerRow.alignment = { horizontal: 'center', vertical: 'middle' };
+      headerRow.height = 30;
+      headerRow.eachCell((cell) => {
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0C133A' } };
+        cell.border = {
+          top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'}
+        };
+      });
+
+      // Map Tailwind class to ARGB hex
+      const getColorHex = (tailwindClass: string) => {
+        if (tailwindClass.includes('navy-light')) return 'FF222A68';
+        if (tailwindClass.includes('navy')) return 'FF0C133A';
+        if (tailwindClass.includes('blue')) return 'FF2A4494';
+        if (tailwindClass.includes('seafoam')) return 'FF57CC99';
+        if (tailwindClass.includes('gold')) return 'FFFFC362';
+        return 'FF57CC99';
+      };
+
+      // Populate Data
+      tasks.forEach((task, index) => {
+        const rowIndex = index + 2;
+        const row = worksheet.getRow(rowIndex);
+        row.height = 25;
+        
+        row.getCell('phase').value = task.phase;
+        row.getCell('activity').value = task.name;
+        row.getCell('owner').value = task.owner || '';
+        
+        row.getCell('phase').alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+        row.getCell('activity').alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+        row.getCell('owner').alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+        
+        row.getCell('phase').font = { bold: true, color: { argb: 'FF222A68' } };
+
+        const startColIndex = 3 + task.startWeek;
+        const endColIndex = startColIndex + task.duration - 1;
+        const barColor = getColorHex(task.color);
+        
+        for (let col = startColIndex; col <= endColIndex; col++) {
+          const cell = row.getCell(col);
+          cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: barColor } };
+        }
+
+        if (task.duration > 1) {
+          worksheet.mergeCells(rowIndex, startColIndex, rowIndex, endColIndex);
+        }
+        
+        for (let col = 1; col <= 3 + weeks.length; col++) {
+          row.getCell(col).border = { bottom: { style: 'thin', color: { argb: 'FFEEEEEE' } } };
+        }
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'project_plan.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+    } catch (e) {
+      console.error("Excel generation failed", e);
+    }
   };
 
   return (
@@ -62,9 +124,9 @@ export default function GanttChart() {
         <div className="col-span-4 text-left px-6 flex items-center justify-between">
           <span>Project Phase & Activities</span>
           <button 
-            onClick={handleDownloadCSV}
+            onClick={handleDownloadExcel}
             className="flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-200 rounded text-[10px] text-[var(--color-brand-navy-light)] hover:text-[var(--color-brand-blue)] hover:border-[var(--color-brand-blue)] transition-colors shadow-sm"
-            title="Download Project Plan (CSV)"
+            title="Download Project Plan (Excel)"
           >
             <Download size={12} />
             <span className="uppercase tracking-wider font-semibold">Export</span>
