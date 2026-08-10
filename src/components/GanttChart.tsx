@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Download } from 'lucide-react';
 type Task = {
   id: string;
   name: string;
@@ -29,12 +30,46 @@ export default function GanttChart() {
 
   const weeks = [1, 2, 3, 4, 5, 6, 7, 8];
 
+  const handleDownloadCSV = () => {
+    const headers = ["Phase", "Activity Name", "Start Week", "Duration (Weeks)", "Owner", "Details"];
+    const csvContent = [
+      headers.join(","),
+      ...tasks.map(t => [
+        `"${t.phase}"`,
+        `"${t.name}"`,
+        t.startWeek,
+        t.duration,
+        `"${t.owner || ''}"`,
+        `"${t.details}"`
+      ].join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'project_plan.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="w-full h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden text-sm font-satoshi mt-2">
 
       {/* Header: Weeks */}
-      <div className="grid grid-cols-12 bg-[#F9F9F9] border-b border-gray-200 py-1.5 text-[var(--color-brand-navy)] font-bold text-center text-xs shrink-0">
-        <div className="col-span-4 text-left px-6">Project Phase & Activities</div>
+      <div className="grid grid-cols-12 bg-[#F9F9F9] border-b border-gray-200 py-1.5 text-[var(--color-brand-navy)] font-bold text-center text-xs shrink-0 items-center">
+        <div className="col-span-4 text-left px-6 flex items-center justify-between">
+          <span>Project Phase & Activities</span>
+          <button 
+            onClick={handleDownloadCSV}
+            className="flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-200 rounded text-[10px] text-[var(--color-brand-navy-light)] hover:text-[var(--color-brand-blue)] hover:border-[var(--color-brand-blue)] transition-colors shadow-sm"
+            title="Download Project Plan (CSV)"
+          >
+            <Download size={12} />
+            <span className="uppercase tracking-wider font-semibold">Export</span>
+          </button>
+        </div>
         <div className="col-span-8 grid grid-cols-8">
           {weeks.map((week) => (
             <div key={`header-wk-${week}`}>Wk {week}</div>
