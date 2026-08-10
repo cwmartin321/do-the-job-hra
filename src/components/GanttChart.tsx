@@ -28,6 +28,8 @@ export default function GanttChart() {
 
   const [hoveredTaskId, setHoveredTaskId] = useState<string | null>(null);
 
+  const weeks = [1, 2, 3, 4, 5, 6, 7, 8];
+
   const handleDownloadExcel = async () => {
     try {
       const exceljsModule = await import('exceljs');
